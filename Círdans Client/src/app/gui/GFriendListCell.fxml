@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox fx:id="hbxGrid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <AnchorPane prefHeight="70.0" prefWidth="70.0">
+      <children>
+        <Pane fx:id="panProfileBorder" prefHeight="57.0" prefWidth="53.0" styleClass="profile-status, offline" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+          <children>
+            <ImageView fx:id="imgProfile" fitHeight="48.0" fitWidth="48.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../../images/default-profile.png" />
+              </image>
+            </ImageView>
+          </children>
+          <stylesheets>
+            <URL value="@../../stylesheets/profile-status.css" />
+          </stylesheets>
+        </Pane>
+      </children>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+    </AnchorPane>
+    <VBox minHeight="-1.0" prefHeight="75.0" prefWidth="465.0" HBox.hgrow="NEVER">
+      <children>
+        <Label id="lblFriendName" fx:id="lblName" contentDisplay="LEFT" prefWidth="-1.0" text="Fulano De Tal" textFill="BLACK" VBox.vgrow="NEVER">
+          <font>
+            <Font size="20.0" />
+          </font>
+          <VBox.margin>
+            <Insets left="5.0" right="10.0" top="10.0" />
+          </VBox.margin>
+        </Label>
+        <Label id="lblBio" fx:id="lblSubItem" prefWidth="-1.0" text="Lorem" VBox.vgrow="NEVER">
+          <font>
+            <Font size="14.0" />
+          </font>
+          <VBox.margin>
+            <Insets left="5.0" right="10.0" fx:id="x1" />
+          </VBox.margin>
+        </Label>
+      </children>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+    </VBox>
+  </children>
+</HBox>

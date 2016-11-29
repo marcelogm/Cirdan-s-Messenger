@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.CRegister">
+  <children>
+    <VBox fx:id="vbxMain" disable="false" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Label alignment="CENTER" prefWidth="360.0" text="Conecte-se com seus amigos da forma clássica." textAlignment="CENTER" textOverrun="ELLIPSIS" wrapText="false" VBox.vgrow="ALWAYS">
+          <labelFor>
+            <TextField id="" fx:id="txfName" alignment="CENTER_LEFT" focusTraversable="true" minHeight="-Infinity" prefWidth="310.0" promptText="Nome completo" text="" HBox.hgrow="ALWAYS">
+              <stylesheets>
+                <URL value="@../../stylesheets/text-input.css" />
+              </stylesheets>
+              <HBox.margin>
+                <Insets fx:id="x3" />
+              </HBox.margin>
+            </TextField>
+          </labelFor>
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+          </VBox.margin>
+        </Label>
+        <Button fx:id="btnRegistered" minWidth="-1.0" mnemonicParsing="false" onAction="#buttonHandler" prefWidth="360.0" text="Eu já tenho um cadastro" VBox.vgrow="ALWAYS">
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" fx:id="x2" />
+          </VBox.margin>
+        </Button>
+        <HBox prefHeight="16.0" prefWidth="360.0" VBox.margin="$x2">
+          <children>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="55.0" text="Facebook" wrapText="false" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets right="10.0" />
+              </HBox.margin>
+            </Label>
+            <Separator maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefWidth="295.0" HBox.hgrow="ALWAYS">
+              <HBox.margin>
+                <Insets top="8.0" />
+              </HBox.margin>
+            </Separator>
+          </children>
+        </HBox>
+        <Button fx:id="btnFacebook" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" mnemonicParsing="false" onAction="#buttonHandler" prefWidth="360.0" styleClass="fb-btn" text="Conectar com o Facebook" textFill="WHITE" wrapText="false" VBox.vgrow="ALWAYS">
+          <font>
+            <Font size="16.0" />
+          </font>
+          <stylesheets>
+            <URL value="@../../stylesheets/fb-btn.css" />
+          </stylesheets>
+          <VBox.margin>
+            <Insets bottom="10.0" left="80.0" right="80.0" />
+          </VBox.margin>
+        </Button>
+        <HBox prefHeight="16.0" prefWidth="360.0000999999975">
+          <children>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" text="Dados cadastrais" wrapText="false" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets right="10.0" />
+              </HBox.margin>
+            </Label>
+            <Separator maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefWidth="266.0" HBox.hgrow="ALWAYS">
+              <HBox.margin>
+                <Insets top="8.0" />
+              </HBox.margin>
+            </Separator>
+          </children>
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" fx:id="x2" />
+          </VBox.margin>
+        </HBox>
+        <HBox minHeight="-1.0" prefHeight="22.0" prefWidth="360.0" VBox.vgrow="NEVER">
+          <children>
+            <Label contentDisplay="RIGHT" labelFor="$txfName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="49.0" text="Nome">
+              <HBox.margin>
+                <Insets right="5.0" top="3.0" />
+              </HBox.margin>
+            </Label>
+            <fx:reference source="txfName" />
+          </children>
+          <VBox.margin>
+            <Insets bottom="5.0" left="20.0" right="20.0" />
+          </VBox.margin>
+        </HBox>
+        <HBox minHeight="-Infinity" padding="$x3" prefHeight="21.0" prefWidth="400.0" VBox.vgrow="NEVER">
+          <children>
+            <Label contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="48.9998779296875" text="Nick">
+              <labelFor>
+                <TextField id="" fx:id="txfNick" alignment="CENTER_LEFT" focusTraversable="true" maxHeight="-1.0" minHeight="-Infinity" prefWidth="310.0" promptText="Nickname" text="" HBox.hgrow="ALWAYS" HBox.margin="$x3">
+                  <stylesheets>
+                    <URL value="@../../stylesheets/text-input.css" />
+                  </stylesheets>
+                </TextField>
+              </labelFor>
+              <HBox.margin>
+                <Insets right="5.0" top="3.0" />
+              </HBox.margin>
+            </Label>
+            <fx:reference source="txfNick" />
+          </children>
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" fx:id="x2" />
+          </VBox.margin>
+        </HBox>
+        <HBox minHeight="-Infinity" prefHeight="21.0" prefWidth="400.0" VBox.vgrow="NEVER">
+          <children>
+            <Label contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="48.9998779296875" text="Email">
+              <labelFor>
+                <TextField id="" fx:id="txfEmail" alignment="CENTER_LEFT" focusTraversable="true" maxHeight="-1.0" minHeight="-Infinity" prefWidth="310.0" promptText="Email" text="" HBox.hgrow="ALWAYS">
+                  <stylesheets>
+                    <URL value="@../../stylesheets/text-input.css" />
+                  </stylesheets>
+                  <HBox.margin>
+                    <Insets fx:id="x3" />
+                  </HBox.margin>
+                </TextField>
+              </labelFor>
+              <HBox.margin>
+                <Insets right="5.0" top="3.0" />
+              </HBox.margin>
+            </Label>
+            <fx:reference source="txfEmail" />
+          </children>
+          <padding>
+            <Insets fx:id="x3" />
+          </padding>
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" fx:id="x2" />
+          </VBox.margin>
+        </HBox>
+        <HBox prefHeight="16.0" prefWidth="360.0000999999975">
+          <children>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="33.0" text="Senha" wrapText="false" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets right="10.0" />
+              </HBox.margin>
+            </Label>
+            <Separator maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefWidth="317.0" HBox.hgrow="ALWAYS">
+              <HBox.margin>
+                <Insets top="8.0" />
+              </HBox.margin>
+            </Separator>
+          </children>
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" fx:id="x2" />
+          </VBox.margin>
+        </HBox>
+        <HBox minHeight="21.0" prefHeight="21.0" prefWidth="360.0">
+          <children>
+            <Label contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="115.5" text="Digite sua senha">
+              <labelFor>
+                <TextField id="" alignment="CENTER_LEFT" focusTraversable="true" layoutX="116.0" layoutY="0.0" maxHeight="-1.0" minHeight="-Infinity" prefWidth="244.5" promptText="Email" text="">
+                  <stylesheets>
+                    <URL value="@../../stylesheets/text-input.css" />
+                  </stylesheets>
+                </TextField>
+              </labelFor>
+              <HBox.margin>
+                <Insets right="5.0" top="3.0" />
+              </HBox.margin>
+            </Label>
+            <PasswordField fx:id="pdfPass" minHeight="-Infinity" prefWidth="241.0" promptText="Utilizar mais de quatro caracteres" text="" HBox.hgrow="ALWAYS">
+              <stylesheets>
+                <URL value="@../../stylesheets/text-input.css" />
+              </stylesheets>
+            </PasswordField>
+          </children>
+          <padding>
+            <Insets fx:id="x3" />
+          </padding>
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" fx:id="x2" />
+          </VBox.margin>
+        </HBox>
+        <HBox minHeight="21.0" prefHeight="21.0" prefWidth="360.0">
+          <children>
+            <Label contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="116.0" text="Digite novamente" HBox.hgrow="NEVER">
+              <labelFor>
+                <TextField id="" alignment="CENTER_LEFT" focusTraversable="true" layoutX="116.0" layoutY="0.0" maxHeight="-1.0" minHeight="-Infinity" prefWidth="244.5" promptText="Email" text="">
+                  <stylesheets>
+                    <URL value="@../../stylesheets/text-input.css" />
+                  </stylesheets>
+                </TextField>
+              </labelFor>
+              <HBox.margin>
+                <Insets right="5.0" top="3.0" />
+              </HBox.margin>
+            </Label>
+            <PasswordField fx:id="pdfRepass" minHeight="-1.0" prefWidth="240.0" promptText="Repita a senha digitada" text="" HBox.hgrow="ALWAYS">
+              <stylesheets>
+                <URL value="@../../stylesheets/text-input.css" />
+              </stylesheets>
+              <HBox.margin>
+                <Insets fx:id="x3" />
+              </HBox.margin>
+            </PasswordField>
+          </children>
+          <padding>
+            <Insets fx:id="x3" />
+          </padding>
+          <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" fx:id="x2" />
+          </VBox.margin>
+        </HBox>
+        <HBox prefHeight="16.0" prefWidth="360.0">
+          <children>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="47.0" text="Finalizar" wrapText="false" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets right="10.0" />
+              </HBox.margin>
+            </Label>
+            <Separator maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefWidth="308.0" HBox.hgrow="ALWAYS">
+              <HBox.margin>
+                <Insets top="8.0" />
+              </HBox.margin>
+            </Separator>
+          </children>
+          <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+          </VBox.margin>
+        </HBox>
+        <HBox id="txfFeedback" minHeight="21.0" prefHeight="21.0" prefWidth="360.0" VBox.vgrow="ALWAYS">
+          <children>
+            <Label id="txfFeedback" fx:id="lblFeedback" alignment="CENTER" contentDisplay="RIGHT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="1000.0" prefWidth="1000.0" text="" textAlignment="CENTER" textFill="#cc0000" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+              <labelFor>
+                <TextField id="" alignment="CENTER_LEFT" focusTraversable="true" layoutX="116.0" layoutY="0.0" maxHeight="-1.0" minHeight="-Infinity" prefWidth="244.5" promptText="Email" text="">
+                  <stylesheets>
+                    <URL value="@../../stylesheets/text-input.css" />
+                  </stylesheets>
+                </TextField>
+              </labelFor>
+              <HBox.margin>
+                <Insets top="3.0" />
+              </HBox.margin>
+            </Label>
+          </children>
+          <padding>
+            <Insets fx:id="x3" />
+          </padding>
+          <VBox.margin>
+            <Insets bottom="5.0" left="20.0" right="20.0" />
+          </VBox.margin>
+        </HBox>
+        <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#buttonHandler" prefWidth="361.0" text="Cadastrar" VBox.vgrow="ALWAYS">
+          <VBox.margin>
+            <Insets bottom="30.0" left="20.0" right="20.0" />
+          </VBox.margin>
+        </Button>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

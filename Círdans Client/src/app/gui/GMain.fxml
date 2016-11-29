@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CMain">
+  <children>
+    <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <MenuBar prefWidth="600.0" VBox.vgrow="NEVER">
+          <menus>
+            <Menu mnemonicParsing="false" text="Opções">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#addFriendAction" text="Adicionar amigo" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem mnemonicParsing="false" onAction="#closeAction" text="Fechar" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Sobre">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Informações" />
+              </items>
+            </Menu>
+          </menus>
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </MenuBar>
+        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800.0" VBox.vgrow="NEVER">
+          <children>
+            <AnchorPane prefHeight="120.0" prefWidth="120.0" HBox.hgrow="NEVER">
+              <children>
+                <Pane fx:id="panProfileBorder" prefHeight="90.0" prefWidth="90.0" styleClass="profile-status" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="15.0">
+                  <children>
+                    <ImageView fx:id="imgSelf" fitHeight="75.0" fitWidth="75.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../../images/default-profile.png" />
+                      </image>
+                    </ImageView>
+                  </children>
+                  <padding>
+                    <Insets bottom="10.0" right="10.0" />
+                  </padding>
+                  <stylesheets>
+                    <URL value="@../../stylesheets/profile-status.css" />
+                  </stylesheets>
+                </Pane>
+              </children>
+            </AnchorPane>
+            <VBox prefHeight="98.0" prefWidth="690.0">
+              <children>
+                <Label fx:id="lblNickname" contentDisplay="RIGHT" text="Nick">
+                  <font>
+                    <Font size="20.0" />
+                  </font>
+                  <graphic>
+                    <Label fx:id="lblProfileName" alignment="BOTTOM_LEFT" contentDisplay="LEFT" prefHeight="23.999900000002526" text="Profile" textFill="GREY">
+                      <font>
+                        <Font size="12.0" />
+                      </font>
+                    </Label>
+                  </graphic>
+                  <VBox.margin>
+                    <Insets left="5.0" top="10.0" />
+                  </VBox.margin>
+                </Label>
+                <Label fx:id="lblProfileBio" minHeight="-1.0" prefHeight="-1.0" text="Bio bio bio bio" VBox.vgrow="NEVER">
+                  <font>
+                    <Font size="14.0" />
+                  </font>
+                  <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" fx:id="x1" />
+                  </VBox.margin>
+                </Label>
+                <ComboBox fx:id="cmbStatus" editable="false" prefHeight="21.0" prefWidth="121.0" visibleRowCount="3" VBox.margin="$x1" VBox.vgrow="NEVER">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Disponível" />
+                      <String fx:value="Ocupado" />
+                      <String fx:value="Ausente" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+              </children>
+              <HBox.margin>
+                <Insets />
+              </HBox.margin>
+            </VBox>
+          </children>
+        </HBox>
+        <HBox prefHeight="426.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+          <children>
+            <TabPane fx:id="tbpMain" cache="false" disable="false" focusTraversable="true" minWidth="-1.0" mouseTransparent="false" prefHeight="-1.0" prefWidth="-1.0" rotate="0.0" rotateGraphic="false" side="TOP" tabClosingPolicy="ALL_TABS" tabMaxHeight="1.7976931348623157E308" tabMinWidth="60.0" visible="true" HBox.hgrow="ALWAYS">
+              <tabs>
+                <Tab closable="false" disable="false" text="Amigos">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="196.0" prefWidth="600.0">
+                      <children>
+                        <ListView fx:id="lvwFriends" editable="false" prefHeight="361.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+          </children>
+        </HBox>
+        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="100.0" VBox.vgrow="NEVER" />
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox style="-fx-background-color: #ECF7FE; -fx-border-color: #CCE3F3;">
+               <children>
+                  <HBox>
+                     <children>
+                        <Text fx:id="lblName" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
+                        <Text fx:id="lblDate" fill="#a8a8a8" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="2.0" />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Text fx:id="lblMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Texto">
+                     <VBox.margin>
+                        <Insets bottom="1.0" left="1.0" right="1.0" top="3.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <Pane prefWidth="50.0" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</AnchorPane>
