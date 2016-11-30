@@ -304,7 +304,7 @@ public class CMain extends AController {
     private void recieveMessage(CProtocol serverMessage){
         SMessage message = (SMessage)serverMessage.getPayload();
         Historic historic = new Historic();
-        historic.record(message);
+        historic.record(message, false);
         this.chatMessageBinding(message);
     }
    

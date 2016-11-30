@@ -1,5 +1,6 @@
 package engine;
 
+import app.console.Main;
 import facade.Facade;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -63,32 +64,14 @@ public class Engine extends Thread{
     private void newClient(Socket socket) throws IOException, ClassNotFoundException {
         boolean connected = false;
         CProtocol message = this.receiveStream(socket);
-        Profile profile =  null;
         switch(message.getType()){
             case REQUIRE_AUTH:
-                SLogin credential = ((SLogin)message.getPayload());
-                profile = f.findProfileByEmail(credential.getEmail());
-                if (profile == null){
-                    this.sendErrorMessage(socket, EResponse.EMAIL_NOT_FOUND);
-                } else if (this.authenticateClient(profile, credential.getPassword())) {
-                    this.createNewConnection(socket, profile);
-                    this.sendSucessful(socket, profile, EResponse.AUTH_SUCCESSFUL);
-                    connected = true;
-                } else {
-                    this.sendErrorMessage(socket, EResponse.PASSWORD_DOESNT_MATCH);        
-                }
+                if(Main.DEBUG_WATCHER) System.out.println(socket.getInetAddress() + " tentando autenticar-se.");
+                connected = requireAuth(message, socket);
                 break;
             case REQUIRE_NEW_ACCOUNT:
-                SProfile profileInfo = ((SProfile)message.getPayload());
-                profile = f.findProfileByEmail(profileInfo.getEmail());
-                if (profile != null){
-                    this.sendErrorMessage(socket, EResponse.EMAIL_ALREADY_EXISTS);
-                } else {
-                    profile = this.createNewAccount(socket, profileInfo);
-                    this.createNewConnection(socket, profile);
-                    this.sendSucessful(socket, profile, EResponse.REGISTRATION_SUCESSFUL);
-                    connected = true;
-                }
+                if(Main.DEBUG_WATCHER) System.out.println(socket.getInetAddress() + " tentando cadastrar-se.");
+                connected = this.requireNewAccount(message, socket);
                 break;
             case REQUIRE_PASSWORD_RESET:
                 break;
@@ -96,6 +79,55 @@ public class Engine extends Thread{
                 System.out.println("Requisição fora dos padrões.");
         }
         if (!connected) socket.close();
+    }
+    
+    /**
+     * Executa protocolo
+     * REQUIRE_AUTH
+     * @param message protocolo
+     * @param socket conexão
+     * @return se está autenticado
+     * @throws IOException 
+     */
+    private boolean requireAuth(CProtocol message, Socket socket) throws IOException{
+        Profile profile =  null;
+        boolean connected = false;
+        SLogin credential = ((SLogin)message.getPayload());
+        profile = f.findProfileByEmail(credential.getEmail());
+        if (profile == null){
+            this.sendErrorMessage(socket, EResponse.EMAIL_NOT_FOUND);
+        } else if (this.authenticateClient(profile, credential.getPassword())) {
+            this.createNewConnection(socket, profile);
+            this.sendSucessful(socket, profile, EResponse.AUTH_SUCCESSFUL);
+            connected = true;
+        } else {
+            this.sendErrorMessage(socket, EResponse.PASSWORD_DOESNT_MATCH);        
+        }
+        return connected;
+    }
+    
+    /**
+     * Executa protocolo 
+     * REQUIRE_NEW_ACCOUNT
+     * @param message protocolo
+     * @param socket conexão
+     * @return se está conectado
+     * @throws IOException 
+     */
+    private boolean requireNewAccount(CProtocol message, Socket socket) throws IOException{
+        Profile profile =  null;
+        boolean connected = false;
+        SProfile profileInfo = ((SProfile)message.getPayload());
+        profile = f.findProfileByEmail(profileInfo.getEmail());
+        if (profile != null){
+            this.sendErrorMessage(socket, EResponse.EMAIL_ALREADY_EXISTS);
+        } else {
+            profile = this.createNewAccount(socket, profileInfo);
+            this.createNewConnection(socket, profile);
+            this.sendSucessful(socket, profile, EResponse.REGISTRATION_SUCESSFUL);
+            connected = true;
+        }
+        return connected;
     }
     
     private void sendSucessful(Socket socket, Profile profile, EResponse what) throws IOException{

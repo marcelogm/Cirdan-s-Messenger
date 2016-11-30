@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import protocol.EStatus;
 import protocol.model.SMessage;
 import protocol.model.SProfile;
+import util.Historic;
 
 /**
  * Controlador da janela de conversa individual
@@ -71,13 +72,8 @@ public class CChat extends AController {
          */
         this.messages.addListener((ListChangeListener.Change<? extends SMessage> change) -> {
             Platform.runLater(() -> {
-                while(change.next()){
-                    if(change.wasAdded()){
-                        for(SMessage added : change.getAddedSubList()){
-                            lvwMessages.getItems().add(added);
-                        }
-                    }
-                }
+                this.lvwMessages.getItems().clear();
+                this.lvwMessages.getItems().addAll(messages);
             });
         });
         // Determinar o Componente como base de construção para cada celula da lista
@@ -89,13 +85,17 @@ public class CChat extends AController {
      * ENTER envia mensagem
      */
     private void textAreaInitializer(){
-        this.txaInput.setOnKeyPressed((KeyEvent keyEvent) -> {
+        this.txaInput.setOnKeyReleased((KeyEvent keyEvent) -> {
             if (keyEvent.getCode() == KeyCode.ENTER)  {
-                String text = txaInput.getText();
-                SMessage message = this.createMessage(text);
-                messages.add(message);
-                this.engine.sendMessage(this.friend.getId(), message);
-                txaInput.setText("");
+                String text = txaInput.getText().trim();
+                if(!text.equals("")){
+                    SMessage message = this.createMessage(text);
+                    Historic historic = new Historic();
+                    historic.record(message, true);
+                    this.addMessage(message);
+                    this.engine.sendMessage(this.friend.getId(), message);
+                    txaInput.clear();
+                }
             }
         });
     }
@@ -118,6 +118,7 @@ public class CChat extends AController {
     
     public void addMessage(SMessage message){
         this.messages.add(message);
+        this.lvwMessages.scrollTo(message);
     }
     
     /**

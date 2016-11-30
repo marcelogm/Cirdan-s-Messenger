@@ -9,7 +9,9 @@ import engine.Engine;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import protocol.model.SMessage;
 
@@ -20,9 +22,10 @@ import protocol.model.SMessage;
 public class CMessageCell extends ListCell<SMessage>{
     private FXMLLoader loader;
     
-    @FXML private Text lblName;
-    @FXML private Text lblDate;
-    @FXML private Text lblMessage;
+    @FXML private AnchorPane anpMain;
+    @FXML private Label lblName;
+    @FXML private Label lblDate;
+    @FXML private Label lblMessage;
     
     @Override
     protected void updateItem(SMessage message, boolean empty){
@@ -38,12 +41,15 @@ public class CMessageCell extends ListCell<SMessage>{
                 loader = new FXMLLoader(getClass().getResource("/app/gui/GReceivedMessage.fxml"));
             }
             loader.setController(this);
-            this.selfBinding(message);
             try{
                 loader.load();
             } catch(IOException e){
                 System.out.println("updateItem@CMessageCell");
             }
+            this.selfBinding(message);
+            this.setText(null);
+            this.setGraphic(anpMain);
+            
         }      
     }
     
@@ -51,5 +57,8 @@ public class CMessageCell extends ListCell<SMessage>{
         this.lblDate.setText(message.getSentAt().toString());
         this.lblMessage.setText(message.getMessage());
         this.lblName.setText(message.getSenderName());
+    }
+    
+    public void initialize() {
     }
 }

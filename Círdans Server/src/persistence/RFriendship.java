@@ -108,13 +108,17 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
         return friends;
     }
     
-    public Friendship findByProfiles(Long sender, Long reciever) {
+    public Friendship findByProfiles(Long proA, Long proB) {
         Friendship friends = null;
         try{
-            String query = "SELECT * FROM rel_profile_profile WHERE profile_reciever = ? AND profile_sender = ?";
+            String query = "SELECT * FROM rel_profile_profile WHERE " + 
+                    "profile_reciever = ? AND profile_sender = ? OR " +
+                    "profile_reciever = ? AND profile_sender = ?";
             statement = DBUtil.getConnetion().prepareStatement(query);
-            statement.setLong(1, reciever);
-            statement.setLong(2, sender);
+            statement.setLong(1, proA);
+            statement.setLong(2, proB);            
+            statement.setLong(3, proB);
+            statement.setLong(4, proA);
             ResultSet result = statement.executeQuery();
             while(result.next()){
                 friends = new Friendship(

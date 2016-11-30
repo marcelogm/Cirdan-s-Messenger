@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import protocol.model.SMessage;
 
@@ -20,8 +21,12 @@ public class Historic {
     private ObjectInputStream reader;
     // Escreve dados do arquivo
     private ObjectOutputStream  writer;
-
+    // Nome base
+    private final String base = "messages\\history\\";
+    
     public Historic() {
+        File path = new File(base);
+        path.mkdirs();
     }
     
     /**
@@ -29,10 +34,15 @@ public class Historic {
      * proprio para cada usuário
      * @param message enviada pelo usuário
      */
-    public void record(SMessage message){
-        if(message.getSenderId() != null){
+    public void record(SMessage message, boolean byMe){
+        if(message.getSenderId() != null && message.getRecieverId() != null){
+            String filename = null;
             try {
-                String filename = message.getSenderId() + ".crg";
+                if(byMe){
+                    filename = base + message.getSenderId() + "_" + message.getRecieverId() + ".crg";
+                } else {
+                    filename = base + message.getRecieverId() + "_" + message.getSenderId() + ".crg";
+                }
                 this.writeBinary(filename, message);
             } catch (IOException ex) {
                 System.out.println("record@Historic");
@@ -45,10 +55,10 @@ public class Historic {
      * @param userId id do usuário
      * @return lista de strings
      */
-    public ArrayList<String> recover(int userId){
+    public ArrayList<String> recover(int myId, int userId){
         ArrayList<String> records = null;
         try {
-            String filename = userId + ".crg";
+            String filename = base + myId + "_" + userId + ".crg";
             records = new ArrayList<>();
             ArrayList<SMessage> messages = this.readBinary(filename);
             for(SMessage message : messages){

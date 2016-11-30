@@ -1,5 +1,6 @@
 package engine;
 
+import app.console.Main;
 import facade.Facade;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -82,7 +83,7 @@ public class ClientConnection extends Thread{
                         this.executeRefusedFriendship(message);
                         break;
                     case PENDING_FRIENDSHIP_REQUEST:
-                        this.sendPendingFriendship();
+                        this.executePendingFriendship();
                         break;
                     case SEND_MESSAGE:
                         this.executeMessageForward(message);
@@ -104,9 +105,12 @@ public class ClientConnection extends Thread{
      */
     private void executeMessageForward(CProtocol clientMessage){
         SMessage message = (SMessage)clientMessage.getPayload();
+        if(Main.DEBUG_WATCHER) {
+            System.out.println(message.getSenderId() + " enviando mensagem para " + message.getRecieverId() + ".");
+        }
         Friendship friendship = this.facade.findFriendshipByProfiles(message.getRecieverId(), message.getSenderId());
         if(friendship != null && friendship.isAccepted() && !friendship.isBlocked()){
-            this.sendMessage(id, message);
+            this.sendMessage(message.getRecieverId(), message);
         } else {
             System.out.println("Usuário " + 
                     message.getSenderName() + 
@@ -121,6 +125,9 @@ public class ClientConnection extends Thread{
      * Só para seguir o padrão, coloquei essa função dentro de uma "execute..."
      */
     private void executePendingFriendship(){
+        if(Main.DEBUG_WATCHER) {
+            System.out.println("Enviando amizades pendentes de " + this.id + ".");
+        }
         this.sendPendingFriendship();
     }
     
@@ -129,6 +136,9 @@ public class ClientConnection extends Thread{
      * REQUIRE_FRIENDLIST
      */
     private void executeRequireFriendList(){
+        if(Main.DEBUG_WATCHER) {
+            System.out.println("Enviando lista de amigos de " + this.id + ".");
+        }
         this.sendFriendList(this.id, this.connection);
     }
     
@@ -137,6 +147,9 @@ public class ClientConnection extends Thread{
      * REQUIRE_CHANGE_STATUS
      */
     private void executeRequireChangeStatus(CProtocol message){
+        if(Main.DEBUG_WATCHER) {
+            System.out.println("Enviando mudança de status de " + this.id + " para amigos.");
+        }
         Integer status = (Integer)message.getPayload();
         this.changeClientStatus(status);
         this.sendChangeStatusToFriends(status);
@@ -148,6 +161,9 @@ public class ClientConnection extends Thread{
      */
     private void executeFindProfileRequest(CProtocol message){
         String likeThis = (String)message.getPayload();
+        if(Main.DEBUG_WATCHER) {
+            System.out.println(this.id + " procurando por usuários com " + likeThis + " em seu nome.");
+        }
         this.sendProfileList(likeThis);
     }
     
@@ -157,8 +173,11 @@ public class ClientConnection extends Thread{
      */
     private void executeNewFriendRequest(CProtocol message){
         Long friend = (Long)message.getPayload();
+        if(Main.DEBUG_WATCHER) {
+            System.out.println("Enviando requisicao de amizade de " + this.id + " para " + friend + ".");
+        }
         this.createFriendRelation(friend);
-        if(this.clientTable.clients.containsKey(id)){
+        if(this.clientTable.clients.containsKey(friend)){
             this.sendFriendshipQuestion(friend);
         }
     }
@@ -170,6 +189,9 @@ public class ClientConnection extends Thread{
     private void executeAcceptedFriendship(CProtocol message){
         Long idAccepted = message.getRecieverId();
         this.setFriendshipAccepted(idAccepted);
+        if(Main.DEBUG_WATCHER) {
+            System.out.println(this.id + " está aceitando uma amizade.");
+        }
         if(this.clientTable.clients.containsKey(idAccepted)){
             Socket client = this.clientTable.clients.get(idAccepted).getConnection();
             this.sendFriendList(idAccepted, client);
@@ -183,6 +205,9 @@ public class ClientConnection extends Thread{
      */
     private void executeRefusedFriendship(CProtocol message){
         Long idRefused = message.getRecieverId();
+        if(Main.DEBUG_WATCHER) {
+            System.out.println(this.id + " está recusando uma amizade.");
+        }
         this.deleteFriendRelation(idRefused);
     }
     
@@ -192,7 +217,7 @@ public class ClientConnection extends Thread{
                 new CProtocol(
                         this.connection.getInetAddress(),
                         this.id,
-                        EResponse.SEND_MESSAGE,
+                        EResponse.RECIEVE_MESSAGE,
                         message
             ));
         } catch (IOException ex) {
@@ -355,7 +380,7 @@ public class ClientConnection extends Thread{
      * @param id  amigo a ser aceito
      */
     private void setFriendshipAccepted(Long id){
-        Friendship relation = facade.findFriendshipByProfiles(id,this.id);
+        Friendship relation = facade.findFriendshipByProfiles(id, this.id);
         relation.setAccepted(true);
         facade.update(relation);
     }

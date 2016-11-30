@@ -3,6 +3,7 @@ package app.console;
 import engine.Engine;
 
 public class Main {
+    public static boolean DEBUG_WATCHER = true;
     /**
      * Partida
      * @param args

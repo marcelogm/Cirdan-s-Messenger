@@ -61,11 +61,11 @@
             <Insets />
           </VBox.margin>
         </HBox>
-        <SplitPane dividerPositions="0.5" focusTraversable="true" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="ALWAYS">
+        <SplitPane dividerPositions="0.6" focusTraversable="true" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="ALWAYS">
           <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ListView fx:id="lvwMessages" layoutX="199.0" layoutY="-29.0" prefHeight="131.0" prefWidth="588.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                        <ListView fx:id="lvwMessages" cache="true" focusTraversable="false" layoutX="199.0" layoutY="-29.0" prefHeight="131.0" prefWidth="588.0" scaleShape="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -78,14 +78,15 @@
                   <children>
                     <ToolBar>
                       <items>
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Chamar a atenção" />
+                                    <Button mnemonicParsing="false" text="Histórico" />
                       </items>
                     </ToolBar>
                     <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                       <children>
                         <TextArea fx:id="txaInput" editable="true" prefHeight="110.0" prefWidth="489.0" wrapText="true" HBox.hgrow="ALWAYS">
                           <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
+                            <Insets fx:id="" bottom="5.0" left="5.0" right="5.0" top="5.0" />
                           </HBox.margin>
                         </TextArea>
                       </children>
