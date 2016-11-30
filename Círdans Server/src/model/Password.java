@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Password extends AModel {
-    public final static String TABLE_NAME = "tbl_message";
+    public final static String TABLE_NAME = "tbl_password";
     
     private String password;
     private String salt;

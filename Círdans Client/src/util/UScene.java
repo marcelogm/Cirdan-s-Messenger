@@ -3,13 +3,18 @@ package util;
 import controller.AController;
 import java.io.IOException;
 import java.net.URL;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 /**
  * Classe Gerenciadora da cena principal
@@ -22,6 +27,8 @@ public class UScene {
     private Stage stage;
     // Laoder
     private FXMLLoader loader;
+    
+    private int x, y;
     
     private UScene(){}
     
@@ -88,5 +95,53 @@ public class UScene {
             Platform.exit();
             System.exit(0);
         });
+    }
+    
+    /**
+     * Balança o stage
+     */
+    public void shakeStage() {
+        this.x = 0;
+        this.y = 0;
+        this.timelineYShake();
+        this.timelineXShake();
+    }
+    
+    /**
+     * Mexe tela no angulo Y
+     */
+    public void timelineYShake(){
+        Timeline timeY = new Timeline(new KeyFrame(Duration.seconds(0.05), (ActionEvent t) -> {
+            if (y == 0) {
+                stage.setY(stage.getY() + 4);
+                y = 1;
+            } else {
+                stage.setY(stage.getY() - 4);
+                y = 0;
+            }
+        }));
+
+        timeY.setCycleCount(8);
+        timeY.setAutoReverse(false);
+        timeY.play();
+    }
+    
+    /**
+     * Mexe tela no angulo X
+     */
+    public void timelineXShake(){
+        Timeline timeX = new Timeline(new KeyFrame(Duration.seconds(0.05), (ActionEvent t) -> {
+            if (x == 0) {
+                stage.setX(stage.getX() + 4);
+                x = 1;
+            } else {
+                stage.setX(stage.getX() - 4);
+                x = 0;
+            }
+        }));
+
+        timeX.setCycleCount(8);
+        timeX.setAutoReverse(false);
+        timeX.play();
     }
 }

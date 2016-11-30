@@ -88,6 +88,9 @@ public class ClientConnection extends Thread{
                     case SEND_MESSAGE:
                         this.executeMessageForward(message);
                         break;
+                    case SEND_TAKE_ATTENTION:
+                        this.executeTakeAttetion(message);
+                        break;
                 }
             } catch (IOException ex) {
                 continueIt = false;
@@ -95,6 +98,28 @@ public class ClientConnection extends Thread{
                 continueIt = false;
                 System.out.println("recieveMessage@ClientConnection");
             }
+        }
+    }
+    
+    /**
+     * Execução do protocolo
+     * SEND_TAKE_ATTENTION
+     * @param message 
+     */
+    private void executeTakeAttetion(CProtocol message){
+        Long friend = message.getRecieverId();
+        String name = (String)message.getPayload();
+        if(Main.DEBUG_WATCHER) {
+            System.out.println("Usuário " + this.id + " está chamando atenção de " + friend + ".");
+        }
+        Friendship friendship = this.facade.findFriendshipByProfiles(message.getRecieverId(), message.getSenderId());
+        if(friendship != null && friendship.isAccepted() && !friendship.isBlocked()){
+            this.sendTakeAttetion(friend, name);
+        } else {
+            System.out.println("Usuário " + 
+                    this.id + 
+                    " não tem permissão para chamar a atenção do usuário " + 
+                    friend);
         }
     }
     
@@ -211,6 +236,11 @@ public class ClientConnection extends Thread{
         this.deleteFriendRelation(idRefused);
     }
     
+    /**
+     * Envia mensagem para outro usuário
+     * @param id perfil
+     * @param message mensagem enviada para o perfil
+     */
     private void sendMessage(long id, SMessage message){
         try {
             this.sendStream(this.clientTable.clients.get(id).connection,
@@ -222,6 +252,24 @@ public class ClientConnection extends Thread{
             ));
         } catch (IOException ex) {
             Logger.getLogger("sendMessage@ClientConnection");
+        }
+    }
+    
+    /**
+     * Envia chamar a atenção para usuário
+     * @param id amigo a ser adicionado
+     */
+    private void sendTakeAttetion(long id, String name){
+        try {
+            this.sendStream(this.clientTable.clients.get(id).connection,
+                new CProtocol(
+                        this.connection.getInetAddress(),
+                        this.id,
+                        EResponse.RECIEVE_TAKE_ATTENTION,
+                        name
+            ));
+        } catch (IOException ex) {
+            System.out.println("sendTakeAttetion@ClientConnection");
         }
     }
     

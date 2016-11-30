@@ -14,7 +14,23 @@ import protocol.model.SMessage;
  *
  * @author Marcelo Gomes Martins
  */
-public class Historic {
+public class UHistoric {
+    
+    // Referencia prórpia
+    private static UHistoric uhistoric;
+    
+    private UHistoric() {
+        File path = new File(base);
+        path.mkdirs();
+    }
+    
+    public static UHistoric getInstance(){
+        if(uhistoric == null) {
+            uhistoric = new UHistoric();
+        }
+        return uhistoric;
+    }
+    
     // Arquivo
     private File file;
     // Le dados do arquivo
@@ -24,10 +40,7 @@ public class Historic {
     // Nome base
     private final String base = "messages\\history\\";
     
-    public Historic() {
-        File path = new File(base);
-        path.mkdirs();
-    }
+    
     
     /**
      * Grava mensagem em um arquivo de registro

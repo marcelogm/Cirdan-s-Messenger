@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Friendship;
 import util.DBUtil;
 
@@ -41,6 +43,7 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,6 +65,7 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,6 +81,7 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,6 +107,7 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
                 );
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -132,6 +138,7 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
                 );
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

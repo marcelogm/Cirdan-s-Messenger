@@ -78,7 +78,7 @@
                   <children>
                     <ToolBar>
                       <items>
-                        <Button mnemonicParsing="false" text="Chamar a atenção" />
+                        <Button mnemonicParsing="false" onAction="#takeAttention" text="Chamar a atenção" />
                                     <Button mnemonicParsing="false" text="Histórico" />
                       </items>
                     </ToolBar>

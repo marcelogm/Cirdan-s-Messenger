@@ -192,6 +192,25 @@ public class Engine {
         }
     }
     
+    
+    /**
+     * Envia achamar atenção
+     */
+    public void sendTakeAttention(Long friend, String name){
+        try {
+            this.sendStream(new CProtocol(
+                    this.connection.ipv4,
+                    this.connection.id,
+                    friend,
+                    new Date(),
+                    EResponse.SEND_TAKE_ATTENTION,
+                    name
+            ));
+        } catch (IOException ex) {
+            System.out.println("sendTakeAttention@Engine");
+        }
+    }
+    
     /**
      * Envia requisição de nova amizade
      * @param friend id do usuario

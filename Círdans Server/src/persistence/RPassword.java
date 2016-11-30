@@ -24,6 +24,7 @@ public class RPassword extends ARepository implements IRepository<Password, Long
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,6 +45,7 @@ public class RPassword extends ARepository implements IRepository<Password, Long
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,6 +61,7 @@ public class RPassword extends ARepository implements IRepository<Password, Long
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,6 +86,7 @@ public class RPassword extends ARepository implements IRepository<Password, Long
                 );
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,6 +111,7 @@ public class RPassword extends ARepository implements IRepository<Password, Long
                 );
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -133,6 +138,7 @@ public class RPassword extends ARepository implements IRepository<Password, Long
                 );
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

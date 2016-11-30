@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import util.ObservableQueue;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -42,8 +43,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import protocol.model.SMessage;
 import protocol.model.SProfile;
-import util.Historic;
+import util.UHistoric;
 import util.UScene;
+import util.USound;
 
 /**
  * Classe controladora da tela principal do aplicativo
@@ -217,15 +219,19 @@ public class CMain extends AController {
             Tab t = new Tab();
             t.setId(friend.getId().toString());
             t.setText(friend.getNick());
+            
             URL location = getClass().getResource("/app/gui/GChat.fxml");
             FXMLLoader loader = new FXMLLoader();
+            
             loader.setLocation(location);
             loader.setBuilderFactory(new JavaFXBuilderFactory());
             Parent root = (Parent)loader.load(location.openStream());
+            
             CChat chat = loader.getController();
             chat.setFriend(friend);
             this.chats.put(friend.getId(), chat);
             t.setContent(root);
+            
             tbpMain.getTabs().add(t);
         } catch (IOException ex) {
             System.out.println("newChatTab@CMain");
@@ -275,6 +281,9 @@ public class CMain extends AController {
                             case RECIEVE_MESSAGE:
                                 this.recieveMessage(message);
                                 break;
+                            case RECIEVE_TAKE_ATTENTION:
+                                this.recieveTakeAttention(message);
+                                break;
                             // Falha na comunicação
                             default:
                                 System.out.println("Protocol ilegal.");
@@ -296,24 +305,85 @@ public class CMain extends AController {
         requests.forEach((id, name) -> this.showFriendshipQuestion(id, name));
     }
     
+    /**
+     * Balança tela do usuário
+     * @param message 
+     */
+    private void recieveTakeAttention(CProtocol message){
+        UScene manager = UScene.getInstance();
+        String name = (String)message.getPayload();
+        manager.getStage().toFront();
+        this.attentioBinding(
+                new SMessage(
+                        message.getSenderId(),
+                        name,
+                        this.engine.getClient().id,
+                        this.engine.getClientInfo().name,
+                        name + " chamou sua atenção.",
+                        new Date()
+                )
+        );
+    }
+    
      /**
      * Prepara chatMessageBinding e grava mensagem de usuário
      * em arquivo de registro em binário
      * @param message 
      */
     private void recieveMessage(CProtocol serverMessage){
+        UScene manager = UScene.getInstance();
         SMessage message = (SMessage)serverMessage.getPayload();
-        Historic historic = new Historic();
-        historic.record(message, false);
+        manager.getStage().toFront();
         this.chatMessageBinding(message);
     }
    
+    private void attentioBinding(SMessage message){
+        UScene stage = UScene.getInstance();
+        if(!chats.containsKey(message.getSenderId())){
+            this.newChatTab(friends.get(message.getSenderId()));
+        }
+        CChat chat = chats.get(message.getSenderId());
+        this.buzzSound(message.getSenderId());
+        stage.shakeStage();
+        chat.addMessage(message);
+    }
+    
+    /**
+     * Envia conteudo de mensagem para
+     * o controlador do chat
+     * @param message 
+     */
     private void chatMessageBinding(SMessage message){
         if(!chats.containsKey(message.getSenderId())){
             this.newChatTab(friends.get(message.getSenderId()));
         }
         CChat chat = chats.get(message.getSenderId());
+        this.alertSound(message.getSenderId());
         chat.addMessage(message);
+    }
+    
+    /**
+     * Emite o som de alerta para novas mensagens
+     * @param id 
+     */
+    private void alertSound(long id){
+        Tab tab = this.tbpMain.getSelectionModel().getSelectedItem();
+        if(tab.getId() == null || Long.parseLong(tab.getId()) != id){
+            USound sound = USound.getInstance();
+            sound.alert();
+        }
+    }
+    
+    /**
+     * Emite o som de chamar atenção
+     * @param id 
+     */
+    private void buzzSound(long id){
+        Tab tab = this.tbpMain.getSelectionModel().getSelectedItem();
+        if(tab.getId() == null || Long.parseLong(tab.getId()) != id){
+            USound sound = USound.getInstance();
+            sound.buzz();
+        }
     }
     
     /**

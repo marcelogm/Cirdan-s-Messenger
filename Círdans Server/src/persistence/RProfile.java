@@ -44,6 +44,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,6 +81,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -95,6 +97,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
             if(result > 0 && DBUtil.DEBUG){
                 System.out.println(statement);
             }
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -112,6 +115,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
                 profile = this.createProfileByResultSet(result);
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,6 +133,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
                 profile = this.createProfileByResultSet(result);
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -155,6 +160,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
                 }
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -176,6 +182,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
                 }
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -197,6 +204,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
                 }
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -245,6 +253,7 @@ public class RProfile extends ARepository implements IRepository<Profile, Long> 
                 }
             }
             if(DBUtil.DEBUG) System.out.println(statement);
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

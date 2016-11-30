@@ -3,11 +3,15 @@ package controller;
 import app.gui.component.CMessageCell;
 import engine.Engine;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -20,7 +24,8 @@ import javafx.scene.layout.VBox;
 import protocol.EStatus;
 import protocol.model.SMessage;
 import protocol.model.SProfile;
-import util.Historic;
+import util.UHistoric;
+import util.USound;
 
 /**
  * Controlador da janela de conversa individual
@@ -85,17 +90,21 @@ public class CChat extends AController {
      * ENTER envia mensagem
      */
     private void textAreaInitializer(){
-        this.txaInput.setOnKeyReleased((KeyEvent keyEvent) -> {
+        this.txaInput.setOnKeyPressed((KeyEvent keyEvent) -> {
             if (keyEvent.getCode() == KeyCode.ENTER)  {
                 String text = txaInput.getText().trim();
                 if(!text.equals("")){
                     SMessage message = this.createMessage(text);
-                    Historic historic = new Historic();
+                    UHistoric historic = UHistoric.getInstance();
                     historic.record(message, true);
                     this.addMessage(message);
                     this.engine.sendMessage(this.friend.getId(), message);
-                    txaInput.clear();
                 }
+            }
+        });
+        this.txaInput.setOnKeyReleased((KeyEvent keyEvent) -> {
+            if (keyEvent.getCode() == KeyCode.ENTER)  {
+                txaInput.setText("");
             }
         });
     }
@@ -117,6 +126,8 @@ public class CChat extends AController {
     }
     
     public void addMessage(SMessage message){
+        UHistoric historic = UHistoric.getInstance();
+        historic.record(message, false);
         this.messages.add(message);
         this.lvwMessages.scrollTo(message);
     }
@@ -185,10 +196,32 @@ public class CChat extends AController {
             }
         });
     }
+    
+    /**
+     * Trava o botão de requisição de atenção
+     * @param ae 
+     */
+    public void takeAttention(ActionEvent ae){
+        Runnable runIt = () -> {
+            try {
+                Button self = (Button)ae.getSource();
+                self.disableProperty().set(true);
+                Platform.runLater(() -> {
+                    this.engine.sendTakeAttention(this.friend.getId(), this.friend.getName());
+                });
+                Thread.sleep(10000);
+                self.disableProperty().set(false);
+            } catch (InterruptedException ex) {
+                System.out.println("takeAttention@CChat");
+            }
+        };
+        new Thread(runIt).start();
+    }
 
     public SProfile getFriend() { return friend; }
     public void setFriend(SProfile friend) { 
         this.friend = friend;
         this.profileBinding();
     }
+    
 }
