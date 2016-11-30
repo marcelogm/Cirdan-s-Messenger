@@ -207,7 +207,8 @@ public class CChat extends AController {
                 Button self = (Button)ae.getSource();
                 self.disableProperty().set(true);
                 Platform.runLater(() -> {
-                    this.engine.sendTakeAttention(this.friend.getId(), this.friend.getName());
+                    System.out.println(this.friend.getName());
+                    this.engine.sendTakeAttention(this.engine.getClient().id, this.engine.getClientInfo().name);
                 });
                 Thread.sleep(10000);
                 self.disableProperty().set(false);

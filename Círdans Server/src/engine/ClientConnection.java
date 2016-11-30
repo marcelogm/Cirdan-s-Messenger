@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,13 +109,12 @@ public class ClientConnection extends Thread{
      */
     private void executeTakeAttetion(CProtocol message){
         Long friend = message.getRecieverId();
-        String name = (String)message.getPayload();
         if(Main.DEBUG_WATCHER) {
             System.out.println("Usuário " + this.id + " está chamando atenção de " + friend + ".");
         }
         Friendship friendship = this.facade.findFriendshipByProfiles(message.getRecieverId(), message.getSenderId());
         if(friendship != null && friendship.isAccepted() && !friendship.isBlocked()){
-            this.sendTakeAttetion(friend, name);
+            this.sendTakeAttetion(friend, (String)message.getPayload());
         } else {
             System.out.println("Usuário " + 
                     this.id + 
@@ -265,6 +265,8 @@ public class ClientConnection extends Thread{
                 new CProtocol(
                         this.connection.getInetAddress(),
                         this.id,
+                        id,
+                        new Date(),
                         EResponse.RECIEVE_TAKE_ATTENTION,
                         name
             ));

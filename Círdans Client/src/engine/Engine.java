@@ -195,6 +195,8 @@ public class Engine {
     
     /**
      * Envia achamar atenção
+     * @param friend
+     * @param name
      */
     public void sendTakeAttention(Long friend, String name){
         try {

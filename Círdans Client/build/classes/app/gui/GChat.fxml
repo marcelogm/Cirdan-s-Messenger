@@ -18,7 +18,7 @@
           <children>
             <Pane fx:id="panStatus" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="90.0" styleClass="online, profile-status">
               <children>
-                <ImageView id="imgProfilePicture" fx:id="imgProfile" fitHeight="75.0" fitWidth="75.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView id="imgProfilePicture" fx:id="imgProfile" fitHeight="75.0" fitWidth="75.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true">
                   <image>
                     <Image url="@../../images/default-profile.png" />
                   </image>

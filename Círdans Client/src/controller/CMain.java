@@ -43,7 +43,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import protocol.model.SMessage;
 import protocol.model.SProfile;
-import util.UHistoric;
 import util.UScene;
 import util.USound;
 
@@ -312,12 +311,13 @@ public class CMain extends AController {
     private void recieveTakeAttention(CProtocol message){
         UScene manager = UScene.getInstance();
         String name = (String)message.getPayload();
+        System.out.println(name);
         manager.getStage().toFront();
         this.attentioBinding(
                 new SMessage(
                         message.getSenderId(),
                         name,
-                        this.engine.getClient().id,
+                        message.getRecieverId(),
                         this.engine.getClientInfo().name,
                         name + " chamou sua atenção.",
                         new Date()
