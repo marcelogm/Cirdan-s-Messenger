@@ -35,7 +35,8 @@ public class Engine extends Thread{
             this.clientTable = ClientTable.getInstance();
             this.server = new ServerSocket(PORT);
         } catch (IOException ex) {
-            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Já existe uma conexão ativa. \nFeche todos o serviços operando na porta 5555.");
+            System.exit(-1);
         }
     }
     
@@ -48,6 +49,7 @@ public class Engine extends Thread{
     
     @Override
     public void run(){
+        System.out.println("Serviço iniciado.");
         while(!this.abort){
             try {
                 Socket socket = this.server.accept();

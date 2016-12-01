@@ -1,7 +1,6 @@
 package app.console;
 
-import util.UScene;
-import engine.Engine;
+import util.UStage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -13,8 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Main.DEBUG = true;
-        Engine engine = Engine.getInstance();
-        UScene smanager = UScene.getInstance();
+        UStage smanager = UStage.getInstance();
         smanager.setStage(stage);
         smanager.loadScene("GLogin");
         smanager.showStage("Círdan's Messenger Login", false);

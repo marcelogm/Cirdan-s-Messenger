@@ -29,7 +29,9 @@ public class CLogin extends ACForm {
     // Barra de progresso de tentativa de conexão
     @FXML private ProgressBar pgbConnect;
     
-    public void initialize() { }
+    public void initialize() {
+        Engine engine = Engine.getInstance();
+    }
     
     /**
      * Tratador de eventos de click em botões na Scene

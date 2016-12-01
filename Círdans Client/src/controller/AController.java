@@ -1,6 +1,6 @@
 package controller;
 
-import util.UScene;
+import util.UStage;
 
 /**
  * Controlador abstrato padrão 
@@ -8,8 +8,8 @@ import util.UScene;
  */
 public abstract class AController {
     // referencia para o gerenciador de Scenes padrão
-    protected UScene sceneManager;
+    protected UStage sceneManager;
     
-    public UScene getSceneManager() { return sceneManager; }
-    public void setSceneManager(UScene sceneManager) { this.sceneManager = sceneManager; }
+    public UStage getSceneManager() { return sceneManager; }
+    public void setSceneManager(UStage sceneManager) { this.sceneManager = sceneManager; }
 }

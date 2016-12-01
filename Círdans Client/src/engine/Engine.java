@@ -14,7 +14,7 @@ import protocol.EResponse;
 import protocol.model.SMessage;
 import protocol.model.SProfile;
 import util.ObservableQueue;
-import util.UScene;
+import util.UStage;
 
 /**
  * Motor que realiza a conexão entre o servidor e os controladores
@@ -296,7 +296,8 @@ public class Engine {
             dialog.setHeaderText("Você está sem acesso ao servidor de mensagens.");
             dialog.setContentText("Verifique sua conexão e tente novamente mais tarde.");
             dialog.showAndWait();
-            UScene smanager = UScene.getInstance();
+            this.destroy();
+            UStage smanager = UStage.getInstance();
             smanager.loadScene("GLogin");
             smanager.showStage("Círdan's Messenger Login", true);
         } catch (IOException ex) {
@@ -329,6 +330,7 @@ public class Engine {
         } catch (IOException ex) {
             System.out.println("Saindo.");
         } finally {
+            Engine.engine = null;
             this.connection = null;
             this.informations = null;
         }

@@ -7,7 +7,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
@@ -20,9 +19,9 @@ import javafx.util.Duration;
  * Classe Gerenciadora da cena principal
  * @author marce
  */
-public class UScene {
+public class UStage {
     // Referencia prórpia
-    private static UScene smanager;
+    private static UStage smanager;
     // Stage principal
     private Stage stage;
     // Laoder
@@ -30,15 +29,15 @@ public class UScene {
     
     private int x, y;
     
-    private UScene(){}
+    private UStage(){}
     
     /**
      * Recupera instance do gerenciador
      * @return 
      */
-    public static UScene getInstance(){
+    public static UStage getInstance(){
         if(smanager == null) {
-            smanager = new UScene();
+            smanager = new UStage();
         }
         return smanager;
     }

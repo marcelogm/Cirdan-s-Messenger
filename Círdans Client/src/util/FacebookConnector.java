@@ -134,7 +134,7 @@ public class FacebookConnector {
      * @param imageUrl 
      */
     private void sendFacebookInfoToController(String name, String email, String imageUrl){
-        UScene sm = UScene.getInstance();
+        UStage sm = UStage.getInstance();
         CRegister rc = (CRegister) sm.getCurrentController();
         rc.bindFacebookInfo(name, email, imageUrl);
         

@@ -449,9 +449,13 @@ public class ClientConnection extends Thread{
     @Override
     public void run(){
         this.sendFriendIsOnline();
-        System.out.println("Cliente " + this.id + " conectado por " + this.ipv4);
+        if(Main.DEBUG_WATCHER) {
+            System.out.println("Cliente " + this.id + " conectado por " + this.ipv4);
+        }
         this.recieveMessage();
-        System.out.println("Cliente " + this.id + " desconectado. ");
+        if(Main.DEBUG_WATCHER) {
+            System.out.println("Cliente " + this.id + " desconectado. ");
+        }
         this.sendFriendIsOffline();
         this.destroy();
     }

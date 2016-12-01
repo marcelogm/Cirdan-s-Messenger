@@ -3,8 +3,6 @@ package controller;
 import app.gui.component.CMessageCell;
 import engine.Engine;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -224,12 +222,10 @@ public class CChat extends AController {
         SMessage toSent = this.createMessage(this.engine.getClientInfo().name + " chamou a atenção.");
         this.engine.sendMessage(this.friend.getId(), toSent, true);
     }
-    
-
+   
     public SProfile getFriend() { return friend; }
     public void setFriend(SProfile friend) { 
         this.friend = friend;
         this.profileBinding();
     }
-    
 }
