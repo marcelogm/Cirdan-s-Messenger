@@ -278,10 +278,10 @@ public class CMain extends AController {
                                 this.friendshipQuestionQueue(message);
                                 break;
                             case RECIEVE_MESSAGE:
-                                this.recieveMessage(message);
+                                this.recieveMessage(message, false);
                                 break;
                             case RECIEVE_TAKE_ATTENTION:
-                                this.recieveTakeAttention(message);
+                                this.recieveMessage(message, true);
                                 break;
                             // Falha na comunicação
                             default:
@@ -303,41 +303,24 @@ public class CMain extends AController {
         HashMap<Long, String> requests = (HashMap<Long, String>)message.getPayload();
         requests.forEach((id, name) -> this.showFriendshipQuestion(id, name));
     }
-    
-    /**
-     * Balança tela do usuário
-     * @param message 
-     */
-    private void recieveTakeAttention(CProtocol message){
-        UScene manager = UScene.getInstance();
-        String name = (String)message.getPayload();
-        System.out.println(name);
-        manager.getStage().toFront();
-        this.attentioBinding(
-                new SMessage(
-                        message.getSenderId(),
-                        name,
-                        message.getRecieverId(),
-                        this.engine.getClientInfo().name,
-                        name + " chamou sua atenção.",
-                        new Date()
-                )
-        );
-    }
-    
+  
      /**
-     * Prepara chatMessageBinding e grava mensagem de usuário
+     * Prepara chatMessageBinding ou attentionBinding e grava mensagem de usuário
      * em arquivo de registro em binário
      * @param message 
      */
-    private void recieveMessage(CProtocol serverMessage){
+    private void recieveMessage(CProtocol serverMessage, boolean isAttention){
         UScene manager = UScene.getInstance();
         SMessage message = (SMessage)serverMessage.getPayload();
         manager.getStage().toFront();
-        this.chatMessageBinding(message);
+        if(isAttention) {
+            this.chatMessageBinding(message); 
+        } else { 
+            this.attentionBinding(message);
+        }
     }
    
-    private void attentioBinding(SMessage message){
+    private void attentionBinding(SMessage message){
         UScene stage = UScene.getInstance();
         if(!chats.containsKey(message.getSenderId())){
             this.newChatTab(friends.get(message.getSenderId()));

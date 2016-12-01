@@ -177,39 +177,18 @@ public class Engine {
      * @param friend id do destinatario
      * @param message mensagem
      */
-    public void sendMessage(Long friend, SMessage message){
+    public void sendMessage(Long friend, SMessage message, boolean isAttention){
         try {
             this.sendStream(new CProtocol(
                     this.connection.ipv4,
                     this.connection.id,
                     friend,
                     new Date(),
-                    EResponse.SEND_MESSAGE,
+                    (isAttention ? EResponse.SEND_TAKE_ATTENTION : EResponse.SEND_MESSAGE),
                     message
             ));
         } catch (IOException ex) {
             System.out.println("sendMessage@Engine");
-        }
-    }
-    
-    
-    /**
-     * Envia achamar atenção
-     * @param friend
-     * @param name
-     */
-    public void sendTakeAttention(Long friend, String name){
-        try {
-            this.sendStream(new CProtocol(
-                    this.connection.ipv4,
-                    this.connection.id,
-                    friend,
-                    new Date(),
-                    EResponse.SEND_TAKE_ATTENTION,
-                    name
-            ));
-        } catch (IOException ex) {
-            System.out.println("sendTakeAttention@Engine");
         }
     }
     
@@ -236,11 +215,7 @@ public class Engine {
     public void sendFriendshipRespose(Long id, boolean bool){
         try {
             CProtocol protocol = new CProtocol();
-            if(bool){
-                protocol.setType(EResponse.ACCEPTED_FRIENDSHIP);
-            } else {
-                protocol.setType(EResponse.REFUSED_FRIENDSHIP);
-            }
+            protocol.setType(bool ? EResponse.ACCEPTED_FRIENDSHIP : EResponse.REFUSED_FRIENDSHIP);
             protocol.setRecieverId(id);
             protocol.setSenderId(this.connection.id);
             protocol.setSender(this.connection.ipv4);

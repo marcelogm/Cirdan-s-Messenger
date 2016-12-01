@@ -87,10 +87,10 @@ public class ClientConnection extends Thread{
                         this.executePendingFriendship();
                         break;
                     case SEND_MESSAGE:
-                        this.executeMessageForward(message);
+                        this.executeMessageForward(message, false);
                         break;
                     case SEND_TAKE_ATTENTION:
-                        this.executeTakeAttetion(message);
+                        this.executeMessageForward(message, true);
                         break;
                 }
             } catch (IOException ex) {
@@ -104,38 +104,17 @@ public class ClientConnection extends Thread{
     
     /**
      * Execução do protocolo
-     * SEND_TAKE_ATTENTION
-     * @param message 
-     */
-    private void executeTakeAttetion(CProtocol message){
-        Long friend = message.getRecieverId();
-        if(Main.DEBUG_WATCHER) {
-            System.out.println("Usuário " + this.id + " está chamando atenção de " + friend + ".");
-        }
-        Friendship friendship = this.facade.findFriendshipByProfiles(message.getRecieverId(), message.getSenderId());
-        if(friendship != null && friendship.isAccepted() && !friendship.isBlocked()){
-            this.sendTakeAttetion(friend, (String)message.getPayload());
-        } else {
-            System.out.println("Usuário " + 
-                    this.id + 
-                    " não tem permissão para chamar a atenção do usuário " + 
-                    friend);
-        }
-    }
-    
-    /**
-     * Execução do protocolo
-     * SEND_MESSAGE
+     * SEND_MESSAGE e SEND_TAKE_ATTENTION
      * @param clientMessage 
      */
-    private void executeMessageForward(CProtocol clientMessage){
+    private void executeMessageForward(CProtocol clientMessage, boolean isAttention){
         SMessage message = (SMessage)clientMessage.getPayload();
         if(Main.DEBUG_WATCHER) {
             System.out.println(message.getSenderId() + " enviando mensagem para " + message.getRecieverId() + ".");
         }
         Friendship friendship = this.facade.findFriendshipByProfiles(message.getRecieverId(), message.getSenderId());
         if(friendship != null && friendship.isAccepted() && !friendship.isBlocked()){
-            this.sendMessage(message.getRecieverId(), message);
+            this.sendMessage(message.getRecieverId(), message, isAttention);
         } else {
             System.out.println("Usuário " + 
                     message.getSenderName() + 
@@ -237,17 +216,17 @@ public class ClientConnection extends Thread{
     }
     
     /**
-     * Envia mensagem para outro usuário
+     * Envia mensagem para outro usuário (texto ou atenção)
      * @param id perfil
      * @param message mensagem enviada para o perfil
      */
-    private void sendMessage(long id, SMessage message){
+    private void sendMessage(long id, SMessage message, boolean isAttention){
         try {
             this.sendStream(this.clientTable.clients.get(id).connection,
                 new CProtocol(
                         this.connection.getInetAddress(),
                         this.id,
-                        EResponse.RECIEVE_MESSAGE,
+                        (isAttention ? EResponse.RECIEVE_MESSAGE : EResponse.RECIEVE_TAKE_ATTENTION),
                         message
             ));
         } catch (IOException ex) {

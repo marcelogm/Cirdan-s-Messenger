@@ -86,53 +86,6 @@ public class CChat extends AController {
     }
     
     /**
-     * Inicia o processo de inicialização do TextArea,
-     * ENTER envia mensagem
-     */
-    private void textAreaInitializer(){
-        this.txaInput.setOnKeyPressed((KeyEvent keyEvent) -> {
-            if (keyEvent.getCode() == KeyCode.ENTER)  {
-                String text = txaInput.getText().trim();
-                if(!text.equals("")){
-                    SMessage message = this.createMessage(text);
-                    UHistoric historic = UHistoric.getInstance();
-                    historic.record(message, true);
-                    this.addMessage(message);
-                    this.engine.sendMessage(this.friend.getId(), message);
-                }
-            }
-        });
-        this.txaInput.setOnKeyReleased((KeyEvent keyEvent) -> {
-            if (keyEvent.getCode() == KeyCode.ENTER)  {
-                txaInput.setText("");
-            }
-        });
-    }
-    
-    /**
-     * Cria objeto que representa uma mensagem
-     * @param value texto da mensagem
-     * @return mensagem
-     */
-    private SMessage createMessage(String value){
-        return new SMessage(
-                this.engine.getClient().id,
-                this.engine.getClientInfo().name,
-                this.friend.getId(),
-                this.friend.getName(),
-                value,
-                new Date()
-        );
-    }
-    
-    public void addMessage(SMessage message){
-        UHistoric historic = UHistoric.getInstance();
-        historic.record(message, false);
-        this.messages.add(message);
-        this.lvwMessages.scrollTo(message);
-    }
-    
-    /**
      * Ainda não implementado
      * @param status 
      */
@@ -197,18 +150,62 @@ public class CChat extends AController {
         });
     }
     
+    
+    /**
+     * Inicia o processo de inicialização do TextArea,
+     * ENTER envia mensagem
+     */
+    private void textAreaInitializer(){
+        this.txaInput.setOnKeyReleased((KeyEvent keyEvent) -> {
+            if (keyEvent.getCode() == KeyCode.ENTER)  {
+                String text = txaInput.getText().trim();
+                if(!text.equals("")){
+                    SMessage message = this.createMessage(text);
+                    UHistoric historic = UHistoric.getInstance();
+                    historic.record(message, true);
+                    this.addMessage(message);
+                    this.engine.sendMessage(this.friend.getId(), message, false);
+                }
+            
+                txaInput.setText("");
+            }
+        });
+    }
+    
+    /**
+     * Cria objeto que representa uma mensagem
+     * @param value texto da mensagem
+     * @return mensagem
+     */
+    private SMessage createMessage(String value){
+        return new SMessage(
+                this.engine.getClient().id,
+                this.engine.getClientInfo().name,
+                this.friend.getId(),
+                this.friend.getName(),
+                value,
+                new Date()
+        );
+    }
+    
+    public void addMessage(SMessage message){
+        UHistoric historic = UHistoric.getInstance();
+        historic.record(message, false);
+        this.messages.add(message);
+        this.lvwMessages.scrollTo(message);
+    }
+    
     /**
      * Trava o botão de requisição de atenção
      * @param ae 
      */
-    public void takeAttention(ActionEvent ae){
+    public void attentionHandler(ActionEvent ae){
         Runnable runIt = () -> {
             try {
                 Button self = (Button)ae.getSource();
                 self.disableProperty().set(true);
                 Platform.runLater(() -> {
-                    System.out.println(this.friend.getName());
-                    this.engine.sendTakeAttention(this.engine.getClient().id, this.engine.getClientInfo().name);
+                    this.takeAttention();
                 });
                 Thread.sleep(10000);
                 self.disableProperty().set(false);
@@ -218,6 +215,16 @@ public class CChat extends AController {
         };
         new Thread(runIt).start();
     }
+    
+    public void takeAttention(){
+        UHistoric historic = UHistoric.getInstance();
+        SMessage toStore = this.createMessage("Você chamou a atenção.");
+        historic.record(toStore, true);
+        this.addMessage(toStore);
+        SMessage toSent = this.createMessage(this.engine.getClientInfo().name + " chamou a atenção.");
+        this.engine.sendMessage(this.friend.getId(), toSent, true);
+    }
+    
 
     public SProfile getFriend() { return friend; }
     public void setFriend(SProfile friend) { 
