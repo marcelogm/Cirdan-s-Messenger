@@ -79,7 +79,7 @@
                     <ToolBar>
                       <items>
                         <Button mnemonicParsing="false" onAction="#attentionHandler" text="Chamar a atenção" />
-                                    <Button mnemonicParsing="false" text="Histórico" />
+                                    <Button mnemonicParsing="false" onAction="#historyHandler" text="Histórico" />
                       </items>
                     </ToolBar>
                     <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">

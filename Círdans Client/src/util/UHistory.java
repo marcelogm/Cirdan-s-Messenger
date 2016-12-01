@@ -14,19 +14,19 @@ import protocol.model.SMessage;
  *
  * @author Marcelo Gomes Martins
  */
-public class UHistoric {
+public class UHistory {
     
     // Referencia prórpia
-    private static UHistoric uhistoric;
+    private static UHistory uhistoric;
     
-    private UHistoric() {
+    private UHistory() {
         File path = new File(base);
         path.mkdirs();
     }
     
-    public static UHistoric getInstance(){
+    public static UHistory getInstance(){
         if(uhistoric == null) {
-            uhistoric = new UHistoric();
+            uhistoric = new UHistory();
         }
         return uhistoric;
     }
@@ -68,7 +68,7 @@ public class UHistoric {
      * @param userId id do usuário
      * @return lista de strings
      */
-    public ArrayList<String> recover(int myId, int userId){
+    public ArrayList<String> recover(long myId, long userId){
         ArrayList<String> records = null;
         try {
             String filename = base + myId + "_" + userId + ".crg";
@@ -122,7 +122,7 @@ public class UHistoric {
     private ArrayList<SMessage> readBinary(String filename) throws IOException{
         this.file = new File(filename);
         ArrayList<SMessage> list = null;
-        if(!file.exists()){
+        if(file.exists()){
             try {
                 list = new ArrayList<>();
                 this.reader = new ObjectInputStream (new FileInputStream(filename));
@@ -136,6 +136,7 @@ public class UHistoric {
                 if (this.writer != null) {
                     this.writer.close();
                 }
+                return null;
             }
         }
         return list;

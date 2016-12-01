@@ -2,6 +2,8 @@ package controller;
 
 import app.gui.component.CMessageCell;
 import engine.Engine;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -9,6 +11,10 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -19,10 +25,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import protocol.EStatus;
 import protocol.model.SMessage;
 import protocol.model.SProfile;
-import util.UHistoric;
+import util.UHistory;
 import util.USound;
 
 /**
@@ -52,7 +59,9 @@ public class CChat extends AController {
     private Engine engine;
     // Lista de mensagens
     private ObservableList<SMessage> messages;
-
+    // Scene de histórico
+    private Stage history;
+    
     public void initialize() {
         // Recebe instance do engine
         this.engine = Engine.getInstance();
@@ -159,7 +168,7 @@ public class CChat extends AController {
                 String text = txaInput.getText().trim();
                 if(!text.equals("")){
                     SMessage message = this.createMessage(text);
-                    UHistoric historic = UHistoric.getInstance();
+                    UHistory historic = UHistory.getInstance();
                     historic.record(message, true);
                     this.addMessage(message);
                     this.engine.sendMessage(this.friend.getId(), message, false);
@@ -187,7 +196,7 @@ public class CChat extends AController {
     }
     
     public void addMessage(SMessage message){
-        UHistoric historic = UHistoric.getInstance();
+        UHistory historic = UHistory.getInstance();
         historic.record(message, false);
         this.messages.add(message);
         this.lvwMessages.scrollTo(message);
@@ -214,8 +223,43 @@ public class CChat extends AController {
         new Thread(runIt).start();
     }
     
+    public void historyHandler(ActionEvent ae){
+        Platform.runLater(()-> {
+            if(this.history == null){ this.history = new Stage(); }
+            if(!this.history.isShowing()){
+                this.history = new Stage();
+                this.history.setTitle("Círdan's Messenger - Histórico de " + this.friend.getName());
+                this.history.setResizable(true);
+                this.newHistoryScene();
+            }
+        });
+    }
+    
+    /**
+     * Realiza a construção da scene GHistory
+     */
+    private void newHistoryScene(){
+        try {
+            UHistory history = UHistory.getInstance();
+            URL location = getClass().getResource("/app/gui/GHistory.fxml");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(location);
+            loader.setBuilderFactory(new JavaFXBuilderFactory());
+            Parent root = (Parent)loader.load(location.openStream());
+            CHistory controller = loader.getController();
+            controller.setMessages( history.recover(this.engine.getClient().id, this.friend.getId()));          
+            Scene scene = new Scene(root);
+            this.history.setScene(scene);
+            this.history.show();
+        } catch (IOException ex) {
+            System.out.println("IOException@newHistoryScene@CChat");
+        } catch (IllegalArgumentException ex){
+            System.out.println("IllegalArgumentException@newHistoryScene@CChat");
+        } 
+    }
+    
     public void takeAttention(){
-        UHistoric historic = UHistoric.getInstance();
+        UHistory historic = UHistory.getInstance();
         SMessage toStore = this.createMessage("Você chamou a atenção.");
         historic.record(toStore, true);
         this.addMessage(toStore);

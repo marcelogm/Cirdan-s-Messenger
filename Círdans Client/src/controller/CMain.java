@@ -408,7 +408,7 @@ public class CMain extends AController {
     }
     
     /**
-     * Realiza a construção da scene por FXML
+     * Realiza a construção da scene GNewFriendship
      */
     private void newAddFriendScene(){
         try {
