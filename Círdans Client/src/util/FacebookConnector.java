@@ -26,9 +26,9 @@ public class FacebookConnector {
     // Propria referencia
     private static FacebookConnector self;
     // Id do aplicativo
-    private final String appId = "1808001012811119";
+    private final String appId = "xxxx";
     // Palava secreta do aplicativo
-    private final String secret = "50426fecc59bbf48fe963c8519dff4a2";
+    private final String secret = "xxxx";
     // Retorna para página de sucesso
     private final String redirectTo = "https://www.facebook.com/connect/login_success.html";
     // URL da requisição
