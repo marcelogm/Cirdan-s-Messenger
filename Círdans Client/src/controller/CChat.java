@@ -70,7 +70,7 @@ public class CChat extends AController {
         // Inicia TextArea
         this.textAreaInitializer();
     }
-     
+    
     /**
      * Inicia o processo de inicialização do ListView,
      * observando a lista de mensagens recebidas
@@ -168,12 +168,9 @@ public class CChat extends AController {
                 String text = txaInput.getText().trim();
                 if(!text.equals("")){
                     SMessage message = this.createMessage(text);
-                    UHistory historic = UHistory.getInstance();
-                    historic.record(message, true);
                     this.addMessage(message);
                     this.engine.sendMessage(this.friend.getId(), message, false);
                 }
-            
                 txaInput.setText("");
             }
         });
@@ -197,7 +194,11 @@ public class CChat extends AController {
     
     public void addMessage(SMessage message){
         UHistory historic = UHistory.getInstance();
-        historic.record(message, false);
+        if(message.getSenderId() == this.engine.getClient().id) {
+            historic.record(message, true);
+        } else {
+            historic.record(message, false);
+        }
         this.messages.add(message);
         this.lvwMessages.scrollTo(message);
     }
@@ -247,7 +248,7 @@ public class CChat extends AController {
             loader.setBuilderFactory(new JavaFXBuilderFactory());
             Parent root = (Parent)loader.load(location.openStream());
             CHistory controller = loader.getController();
-            controller.setMessages( history.recover(this.engine.getClient().id, this.friend.getId()));          
+            controller.setMessages(history.recover(this.engine.getClient().id, this.friend.getId()));          
             Scene scene = new Scene(root);
             this.history.setScene(scene);
             this.history.show();
@@ -259,10 +260,8 @@ public class CChat extends AController {
     }
     
     public void takeAttention(){
-        UHistory historic = UHistory.getInstance();
-        SMessage toStore = this.createMessage("Você chamou a atenção.");
-        historic.record(toStore, true);
-        this.addMessage(toStore);
+        SMessage attention = this.createMessage("Você chamou a atenção.");
+        this.addMessage(attention);
         SMessage toSent = this.createMessage(this.engine.getClientInfo().name + " chamou a atenção.");
         this.engine.sendMessage(this.friend.getId(), toSent, true);
     }

@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
@@ -60,7 +59,7 @@ public class CLogin extends ACForm {
             Platform.runLater(() -> {
                 // Feedback de inicio de processo
                 this.buttonSetDisable(true);
-                this.pgbConnect.setVisible(true);
+                this.pgbConnect.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
                 this.setConnMessage();
                 // Envia requisição de login
                 this.serverInputDialog();
@@ -68,7 +67,7 @@ public class CLogin extends ACForm {
                 this.loginHandler(response);
                 // Feedback de final de processo
                 this.resetConnMessage();
-                this.pgbConnect.setVisible(false);
+                this.pgbConnect.setProgress(0);
                 buttonSetDisable(false);
             });
         }

@@ -34,7 +34,7 @@
     </AnchorPane>
     <VBox minHeight="-1.0" prefHeight="75.0" prefWidth="-1.0" HBox.hgrow="ALWAYS">
       <children>
-        <Label id="lblFriendName" fx:id="lblName" contentDisplay="LEFT" prefWidth="-1.0" text="Fulano De Tal" textFill="BLACK" VBox.vgrow="NEVER">
+        <Label id="lblFriendName" fx:id="lblName" contentDisplay="LEFT" prefWidth="230.0" text="Fulano De Tal" textFill="BLACK" VBox.vgrow="NEVER">
           <font>
             <Font size="20.0" />
           </font>

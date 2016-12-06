@@ -26,7 +26,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Sobre">
               <items>
-                <MenuItem mnemonicParsing="false" text="Informações" />
+                <MenuItem mnemonicParsing="false" onAction="#informationAction" text="Informações" />
               </items>
             </Menu>
           </menus>
@@ -113,7 +113,6 @@
             </TabPane>
           </children>
         </HBox>
-        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="100.0" VBox.vgrow="NEVER" />
       </children>
     </VBox>
   </children>

@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -50,6 +51,8 @@ public class UStage {
     public void showStage(String title, boolean resizable){
         this.stage.setTitle(title);
         this.stage.setResizable(resizable);
+        this.stage.setIconified(false);
+        this.stage.getIcons().add(new Image("/images/mini_logo.png"));
         this.stage.show();
     }
     

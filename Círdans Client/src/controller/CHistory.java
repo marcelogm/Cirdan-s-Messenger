@@ -32,7 +32,6 @@ public class CHistory extends AController {
     
     public void setMessages(ArrayList<String> list){
         if(list != null){
-            System.out.println(list.toString());
             this.lvwHistory.getItems().addAll(list);
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -323,8 +323,7 @@ public class CMain extends AController {
         friend.setStatus((Integer)message.getPayload());
         this.friends.put(friend.getId(), friend);
         if(chats.containsKey(friend.getId())){
-            this.chats.get(friend.getId()).updateStatusPane(EStatus.get((Integer)message.getPayload())
-            );
+            this.chats.get(friend.getId()).updateStatusPane(EStatus.get((Integer)message.getPayload()));
         }
     }
         
@@ -399,6 +398,7 @@ public class CMain extends AController {
     
     /**
      * Finaliza programa
+     * @param event
      */
     public void closeAction(ActionEvent event){
         Stage self = UStage.getInstance().getStage();
@@ -406,6 +406,24 @@ public class CMain extends AController {
         self.close();
         Platform.exit();
     }
+    
+     /**
+     * Mostra informações
+     * @param event
+     */
+    public void informationAction(ActionEvent event){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informações");
+            alert.setHeaderText("Círdan's Messenger");
+            alert.setContentText("Desenvolvido por Marcelo Gomes Martins.\n"
+                    + "Trabalho de conclusão de semestre para Programação "
+                    + "Orientada a Objetos II.\n"
+                    + "Professora Diana Cabral Cavalcanti.");
+            alert.showAndWait();
+        });
+    }
+    
     
     /**
      * Realiza a construção da scene GNewFriendship
@@ -439,6 +457,7 @@ public class CMain extends AController {
             this.addFriend.setTitle("Círdan's Messenger - Adicionar amigo");
             this.addFriend.setAlwaysOnTop(true);
             this.addFriend.setResizable(false);
+            this.addFriend.setIconified(false);
             this.newAddFriendScene();
         }
     }

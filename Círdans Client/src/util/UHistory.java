@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Path;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import protocol.model.SMessage;
 
@@ -46,6 +46,7 @@ public class UHistory {
      * Grava mensagem em um arquivo de registro
      * proprio para cada usuário
      * @param message enviada pelo usuário
+     * @param byMe
      */
     public void record(SMessage message, boolean byMe){
         if(message.getSenderId() != null && message.getRecieverId() != null){
@@ -100,7 +101,7 @@ public class UHistory {
             if(!file.exists()){
                 this.writer = new ObjectOutputStream(new FileOutputStream(filename));
             } else {
-                this.writer = new ObjectOutputStream(new FileOutputStream(filename, true));
+                this.writer = new AppendableObjectOutputStream(new FileOutputStream(filename, true));
             }
             this.writer.writeObject(obj);
             this.writer.flush();
@@ -121,10 +122,9 @@ public class UHistory {
      */
     private ArrayList<SMessage> readBinary(String filename) throws IOException{
         this.file = new File(filename);
-        ArrayList<SMessage> list = null;
+        ArrayList<SMessage> list = new ArrayList<>();
         if(file.exists()){
             try {
-                list = new ArrayList<>();
                 this.reader = new ObjectInputStream (new FileInputStream(filename));
                 Object buffer;
                 while((buffer = this.reader.readObject()) != null){
@@ -136,9 +136,17 @@ public class UHistory {
                 if (this.writer != null) {
                     this.writer.close();
                 }
-                return null;
             }
         }
         return list;
+    }
+    
+    private static class AppendableObjectOutputStream extends ObjectOutputStream {
+        public AppendableObjectOutputStream(OutputStream out) throws IOException {
+            super(out);
+        }
+
+        @Override
+        protected void writeStreamHeader() throws IOException {}
     }
 }
