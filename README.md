@@ -39,8 +39,9 @@ public class CProtocol implements Serializable {
 - Servidor MySQL
 - Java Platform SE 7
 ### Como instalar:
-1 – Descompactar os arquivos executáveis.
-2 – Executar o Script de criação de banco de dados [app_cirdan_server.sql](https://github.com/marcelogm/Cirdan-s-Messenger/blob/master/Dist/app_cirdan_server.sql).
-3 – Executar o servidor com “java -jar C_rdans_Server.jar” ou pelo script run.bat.
-4 – Conectar com o cliente.
+– Descompactar os arquivos executáveis.
+– Executar o Script de criação de banco de dados [app_cirdan_server.sql](https://github.com/marcelogm/Cirdan-s-Messenger/blob/master/Dist/app_cirdan_server.sql).
+– Executar o servidor com “java -jar C_rdans_Server.jar” ou pelo script run.bat.
+– Conectar com o cliente.
+
 Obs.: o executável foi compilado em modo de depuração, caso queira eliminar a pergunta de IP do servidor (em [Main.java](https://github.com/marcelogm/Cirdan-s-Messenger/blob/master/C%C3%ADrdans%20Client/src/app/console/Main.java) na flag DEBUG) ou definir um IP fixo de servidor nos clientes (em [Engine.java](https://github.com/marcelogm/Cirdan-s-Messenger/blob/master/C%C3%ADrdans%20Client/src/engine/Engine.java) no método construtor), basta abrir o projeto com o NetBeans e recopila-lo com as configurações adequadas.
