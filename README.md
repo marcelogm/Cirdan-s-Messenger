@@ -1,4 +1,4 @@
-# Cirdan-s-Messenger
+# Círdan's Messenger
 ## Geral
 Trabalho de conclusão de semestre para a disciplina de Programação Orientada a Objetos ministrada pela Profª. Diana Cabral Cavalcanti.
 ## Sobre
