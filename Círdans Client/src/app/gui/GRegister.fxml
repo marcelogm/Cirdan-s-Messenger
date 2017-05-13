@@ -16,7 +16,7 @@
       <children>
         <Label alignment="CENTER" prefWidth="360.0" text="Conecte-se com seus amigos da forma clássica." textAlignment="CENTER" textOverrun="ELLIPSIS" wrapText="false" VBox.vgrow="ALWAYS">
           <labelFor>
-            <TextField id="" fx:id="txfName" alignment="CENTER_LEFT" focusTraversable="true" minHeight="-Infinity" prefWidth="310.0" promptText="Nome completo" text="" HBox.hgrow="ALWAYS">
+            <TextField fx:id="txfName" alignment="CENTER_LEFT" focusTraversable="true" minHeight="-Infinity" prefWidth="310.0" promptText="Nome completo" text="" HBox.hgrow="ALWAYS">
               <stylesheets>
                 <URL value="@../../stylesheets/text-input.css" />
               </stylesheets>
@@ -100,7 +100,7 @@
           <children>
             <Label contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="48.9998779296875" text="Nick">
               <labelFor>
-                <TextField id="" fx:id="txfNick" alignment="CENTER_LEFT" focusTraversable="true" maxHeight="-1.0" minHeight="-Infinity" prefWidth="310.0" promptText="Nickname" text="" HBox.hgrow="ALWAYS" HBox.margin="$x3">
+                <TextField fx:id="txfNick" alignment="CENTER_LEFT" focusTraversable="true" maxHeight="-1.0" minHeight="-Infinity" prefWidth="310.0" promptText="Nickname" text="" HBox.hgrow="ALWAYS" HBox.margin="$x3">
                   <stylesheets>
                     <URL value="@../../stylesheets/text-input.css" />
                   </stylesheets>
@@ -120,7 +120,7 @@
           <children>
             <Label contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="48.9998779296875" text="Email">
               <labelFor>
-                <TextField id="" fx:id="txfEmail" alignment="CENTER_LEFT" focusTraversable="true" maxHeight="-1.0" minHeight="-Infinity" prefWidth="310.0" promptText="Email" text="" HBox.hgrow="ALWAYS">
+                <TextField fx:id="txfEmail" alignment="CENTER_LEFT" focusTraversable="true" maxHeight="-1.0" minHeight="-Infinity" prefWidth="310.0" promptText="Email" text="" HBox.hgrow="ALWAYS">
                   <stylesheets>
                     <URL value="@../../stylesheets/text-input.css" />
                   </stylesheets>
