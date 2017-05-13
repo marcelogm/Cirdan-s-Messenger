@@ -7,26 +7,14 @@ package marcelo;
 
 import app.console.Main;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
-import static org.hamcrest.CoreMatchers.is;
-import org.junit.Assert;
 import org.junit.Test;
-import org.loadui.testfx.Assertions;
 import static org.loadui.testfx.Assertions.assertNodeExists;
-import static org.loadui.testfx.Assertions.verifyThat;
 import org.loadui.testfx.GuiTest;
-import static org.loadui.testfx.controls.Commons.hasText;
-import static org.loadui.testfx.controls.impl.VisibleNodesMatcher.visible;
-import org.loadui.testfx.utils.FXTestUtils;
-import static org.testfx.util.NodeQueryUtils.isVisible;
 import util.UStage;
 
 /**
