@@ -80,8 +80,5 @@ public class FirstUsageTest extends GuiTest{
         }
     }
 
-    private void wait(int i, TimeUnit timeUnit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }
