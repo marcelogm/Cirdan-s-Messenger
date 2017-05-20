@@ -10,3 +10,6 @@ Círdans Shared/build/
 Círdans Shared/dist/
 Círdans Shared/messages/
 Círdans Shared/nbproject/
+/Círdans Client/build/
+*.png
+Círdans Server/nbproject/private/private.xml
