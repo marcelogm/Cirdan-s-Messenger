@@ -55,7 +55,7 @@
         <Insets />
       </HBox.margin>
     </VBox>
-    <Button id="btnAdicionar" fx:id="btnAdd" mnemonicParsing="false" onAction="#friendRequestAction" text="Adicionar" HBox.hgrow="NEVER">
+    <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#friendRequestAction" text="Adicionar" HBox.hgrow="NEVER">
       <HBox.margin>
         <Insets top="25.0" />
       </HBox.margin>

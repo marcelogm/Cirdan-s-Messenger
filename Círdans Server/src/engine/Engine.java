@@ -20,7 +20,7 @@ import protocol.model.SProfile;
 import util.UPassword;
 
 public class Engine extends Thread{
-    public static final int PORT = 5555;
+    public static final int PORT = 5556;
     public boolean abort = false;
 
     private static Engine engine;

@@ -42,7 +42,7 @@ public class Engine {
      * Construtor privado
      */
     private Engine(){
-        this.serverPort = "5555";
+        this.serverPort = "5556";
         this.serverIpv4 = "localhost";
         connection = new ConnectionInfo(
                 null,

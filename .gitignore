@@ -1,2 +1,12 @@
-/Círdans Client/dist/
-/Círdans Server/dist/
+﻿Círdans Client/build/
+Círdans Client/dist/
+Círdans Client/messages/
+Círdans Client/nbproject/
+Círdans Server/build/
+Círdans Server/dist/
+Círdans Server/messages/
+Círdans Server/nbproject/
+Círdans Shared/build/
+Círdans Shared/dist/
+Círdans Shared/messages/
+Círdans Shared/nbproject/
