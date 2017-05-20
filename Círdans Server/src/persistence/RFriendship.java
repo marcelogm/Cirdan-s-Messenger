@@ -7,6 +7,7 @@
 package persistence;
 
 import app.console.Main;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,6 +47,13 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                Connection conn = DBUtil.getConnetion();
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RFriendship.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

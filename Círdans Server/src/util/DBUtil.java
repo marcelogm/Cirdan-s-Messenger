@@ -15,7 +15,6 @@ public class DBUtil {
 
     public static Connection getConnetion() {
         Connection connection = null;
-
         try {
             Class.forName(driver);
             if (connection == null || connection.isClosed()) {
@@ -43,4 +42,5 @@ public class DBUtil {
         }
         return flag;
     }
+
 }
