@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
  * @author Marcelo Gomes Martins
  */
 public abstract class ARepository {
-    protected PreparedStatement statement;
-    
     protected void setTimestampOnCreate(PreparedStatement statement) throws SQLException{
         statement.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
         statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
