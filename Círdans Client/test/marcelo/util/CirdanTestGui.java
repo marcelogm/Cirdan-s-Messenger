@@ -28,7 +28,6 @@ public abstract class CirdanTestGui extends GuiTest {
     
     @Override
     protected Parent getRootNode() {
-        Main.DEBUG = false;
         UStage smanager = UStage.getInstance();
         smanager.setStage(stage);
         try {
