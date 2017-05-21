@@ -233,9 +233,9 @@
             <Insets left="20.0" right="20.0" />
           </VBox.margin>
         </HBox>
-        <HBox id="txfFeedback" minHeight="21.0" prefHeight="21.0" prefWidth="360.0" VBox.vgrow="ALWAYS">
+        <HBox minHeight="21.0" prefHeight="21.0" prefWidth="360.0" VBox.vgrow="ALWAYS">
           <children>
-            <Label id="txfFeedback" fx:id="lblFeedback" alignment="CENTER" contentDisplay="RIGHT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="1000.0" prefWidth="1000.0" text="" textAlignment="CENTER" textFill="#cc0000" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblFeedback" alignment="CENTER" contentDisplay="RIGHT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="1000.0" prefWidth="1000.0" text="" textAlignment="CENTER" textFill="#cc0000" textOverrun="CLIP" HBox.hgrow="ALWAYS">
               <labelFor>
                 <TextField id="" alignment="CENTER_LEFT" focusTraversable="true" layoutX="116.0" layoutY="0.0" maxHeight="-1.0" minHeight="-Infinity" prefWidth="244.5" promptText="Email" text="">
                   <stylesheets>
