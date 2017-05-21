@@ -8,12 +8,21 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *
- * @author marce
+ * Cenário de teste de utilização básica
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN002CT01 extends CirdanTestGui {
-    @Test
-    public void test()
+    
+    /**
+     * Teste de adicionar novo amigo
+     * 
+     * Pré requisitos:
+     * Estar logado no sistema.
+     * Outro usuário cadastrado no banco de dados utilizando o nome
+     * Constants.FRIEND_NAME que NÃO seja amigo do usuário de teste
+     */
+    @Test public void test()
     {
         preExecute();
         click("Opções").click("Adicionar amigo");

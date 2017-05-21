@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import java.util.Set;
@@ -13,13 +8,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *
- * @author marce
+ * Caso de teste de gerenciamento de amigos
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN004CT01 extends CirdanTestGui {
     
-    @Test
-    public void test(){
+    /**
+     * Teste de convite de novo amigo utilizando parte do nome de usuário
+     * 
+     * Pré requisitos:
+     * Estar logado no sistema.
+     * Possuir outros usuários cadastrados que 
+     * tenham ANOTHER_FRIEND_NAME.substring(2, 6) e não possuam vínculo
+     * de amizade
+     */
+    @Test public void test(){
         preExecute();
         click("Opções").click("Adicionar amigo");
         click("#txfSearch").type(ANOTHER_FRIEND_NAME.substring(2, 6));

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import javafx.scene.control.TextField;
@@ -16,14 +11,21 @@ import static org.loadui.testfx.GuiTest.find;
 import static org.loadui.testfx.controls.Commons.hasText;
 
 /**
- *
- * @author marce
+ * Cenário de teste de login
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN005CT03 extends CirdanTestGui{
     
-    @Test
-    public void test(){
+    /**
+     * Teste de login com email com lower e upper case
+     * 
+     * Pré requisitos:
+     * Ter o software instalado
+     */
+    @Test public void test(){
         char first = EMAIL_BODY.charAt(0);
+        // requisito do teste desenvolvido 
         if(Character.isLowerCase(first)){
             first = Character.toUpperCase(first);
         } else {

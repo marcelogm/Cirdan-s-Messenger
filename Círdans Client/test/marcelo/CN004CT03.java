@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import javafx.scene.control.TextField;
@@ -12,12 +7,15 @@ import org.junit.Test;
 import static org.loadui.testfx.GuiTest.find;
 
 /**
- *
- * @author marce
+ * Cenário de teste de gerenciamento de amigos
+ * 
+ * Exatamente igual ao caso de teste anterior
+ * @see CN004CT2  
+ * @author Marcelo Gomes Martins
  */
 public class CN004CT03 extends CirdanTestGui {
-    @Test
-    public void test(){
+    
+    @Test public void test(){
         preExecute();
         openNewFriendScreen();
         click("Pesquisar");
@@ -33,4 +31,5 @@ public class CN004CT03 extends CirdanTestGui {
         Assert.assertTrue(colorMatch);
         sleep(1000);
     }
+    
 }

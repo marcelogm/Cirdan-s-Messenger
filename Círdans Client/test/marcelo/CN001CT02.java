@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import controller.CMain;
@@ -14,13 +9,22 @@ import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.controls.Commons.hasText;
 import util.UStage;
 import static marcelo.util.Constants.*;
+
 /**
- *
- * @author marce
+ * Cenário de teste de primeiro uso
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN001CT02 extends CirdanTestGui {
-    @Test
-    public void test()
+    
+    /**
+     * Teste simple de login
+     * 
+     * Pré requisitos:
+     * Já ter executado o caso de teste CN001CT01
+     * @see CN001CT01.java
+     */
+    @Test public void test()
     {
         click("#txfEmail").
                 type(EMAIL_BODY).

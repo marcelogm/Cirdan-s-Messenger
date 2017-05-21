@@ -1,13 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
-import java.util.Set;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -18,15 +10,25 @@ import org.junit.Test;
 import protocol.model.SMessage;
 
 /**
- *
- * @author marce
+ * Cenário de teste de gerenciamento de amigos
+ * Apesar de estar classificado como teste gerenciamento de amigos,
+ * aparenta ser um teste de stress
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN004CT05 extends CirdanTestGui {
     
-    @Test
-    public void test(){
+    /**
+     * Teste de envio de solicitação de amizade em um ambiente de stress
+     * 
+     * Pré requisitos:
+     * Estar logado no sistema.
+     * Possui outro usuário conectado @see CN002CT02
+     */
+    @Test public void test(){
         preExecute();
         /*
+        // Parte do teste suprimida
         click("Opções").click("Adicionar amigo");
         click("#txfSearch").type(ANOTHER_FRIEND_NAME);
         click("Pesquisar");

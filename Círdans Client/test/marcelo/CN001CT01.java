@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import controller.CMain;
@@ -14,14 +9,21 @@ import static org.loadui.testfx.controls.Commons.hasText;
 import util.UStage;
 import static marcelo.util.Constants.*;
 import marcelo.util.CirdanTestGui;
+
 /**
- *
- * @author marce
+ * Cenário de teste de primeiro uso
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN001CT01 extends CirdanTestGui {
 
-    @Test
-    public void test() {
+    /**
+     * Teste do cadastro de um novo usuário no programa
+     * 
+     * Pré requisitos:
+     * Ter o software instalado
+     */
+    @Test public void test() {
         click("#btnRegistration");
         click("#txfName").type(NAME);
         click("#txfNick").type(NICK);
@@ -39,5 +41,4 @@ public class CN001CT01 extends CirdanTestGui {
         verifyThat("#lblNickname", hasText(NICK));
         verifyThat("#lblProfileName", hasText(NAME));
     }
-    
 }

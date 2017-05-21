@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import java.util.Set;
@@ -15,13 +10,21 @@ import static marcelo.util.Constants.*;
 import org.junit.Test;
 
 /**
- *
- * @author marce
+ * Cenário de teste de utilização básica
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN002CT02 extends CirdanTestGui {
     
-    @Test
-    public void test()
+    /**
+     * Teste de envio de mensagem
+     * 
+     * Pré requisitos:
+     * Estar logado no sistema.
+     * Possuir outro usuário ONLINE com vínculo de amizade ativo e que 
+     * possua o nome Constants.FRIEND_NAME
+     */
+    @Test public void test()
     {
         preExecute();
         click(FRIED_NAME).click(FRIED_NAME);

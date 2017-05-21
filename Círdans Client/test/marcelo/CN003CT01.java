@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import javafx.scene.layout.Pane;
@@ -11,13 +6,19 @@ import marcelo.util.CirdanTestGui;
 import org.junit.Test;
 
 /**
- *
- * @author marce
+ * Cenário de teste de gerenciamento de status
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN003CT01 extends CirdanTestGui {
     
-    @Test
-    public void test()
+    /**
+     * Teste de mudança de status 
+     * 
+     * Pré requisitos:
+     * Estar logado no sistema.
+     */
+    @Test public void test()
     {
         preExecute();
         click("Disponível");

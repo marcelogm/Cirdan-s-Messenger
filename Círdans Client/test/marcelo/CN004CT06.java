@@ -1,20 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
 import marcelo.util.CirdanTestGui;
 import org.junit.Test;
 
 /**
- *
- * @author marce
+ * Cenário de teste de gerenciamento de amigos
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN004CT06 extends CirdanTestGui{
-    @Test
-    public void test(){
+    
+    /**
+     * Teste da funcionalidade de "Decidir mais tarde"
+     * 
+     * Pré requisitos:
+     * Estar logado no sistema.
+     * Possuir pedido de amizade pendente
+     *
+     * @see issue: mensagem nunca mais é mostrada novamente
+     */
+    @Test public void test(){
         preExecute();
         click("Decidir mais tarde");
     }

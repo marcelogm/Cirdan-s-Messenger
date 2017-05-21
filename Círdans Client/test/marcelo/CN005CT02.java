@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marcelo;
 
-import controller.CMain;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import junit.framework.Assert;
@@ -15,14 +9,20 @@ import org.junit.Test;
 import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.GuiTest.find;
 import static org.loadui.testfx.controls.Commons.hasText;
-import util.UStage;
 
 /**
- *
- * @author marce
+ * Cenário de teste de login
+ * 
+ * @author Marcelo Gomes Martins
  */
 public class CN005CT02 extends CirdanTestGui{
     
+    /**
+     * Teste do login com usuário inexistente
+     * 
+     * Pré requisitos:
+     * Ter o software instalado
+     */
     @Test
     public void test(){
         click("#txfEmail").
