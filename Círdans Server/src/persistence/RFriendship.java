@@ -57,6 +57,7 @@ public class RFriendship extends ARepository implements IRepository<Friendship, 
         try{
             String query = "UPDATE rel_profile_profile SET " +
                     "updated_at = ?, accepted = ?, blocked = ?, profile_reciever = ?, profile_sender = ? WHERE id = ?";
+            conn = DBUtil.getConnetion();
             st = conn.prepareStatement(query);
             conn = DBUtil.getConnetion();
             this.setTimestampOnUpdate(st);
