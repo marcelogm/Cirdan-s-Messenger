@@ -3,6 +3,12 @@ package marcelo;
 import javafx.scene.layout.Pane;
 import junit.framework.Assert;
 import marcelo.util.CirdanTestGui;
+import marcelo.util.Constants;
+import static marcelo.util.Constants.*;
+import marcelo.interfaces.IAfterTest;
+import marcelo.interfaces.IBeforeTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -10,7 +16,7 @@ import org.junit.Test;
  * 
  * @author Marcelo Gomes Martins
  */
-public class CN003CT01 extends CirdanTestGui {
+public class CN003CT01 extends CirdanTestGui implements IBeforeTest, IAfterTest{
     
     /**
      * Teste de mudança de status 
@@ -20,7 +26,7 @@ public class CN003CT01 extends CirdanTestGui {
      */
     @Test public void test()
     {
-        preExecute();
+        doLogin(FULL_SMALL_EMAIL, PASS);
         click("Disponível");
         click("Ausente");
         Pane pane = find("#panProfileBorder");
@@ -35,6 +41,14 @@ public class CN003CT01 extends CirdanTestGui {
         click("Ausente");
         click("Disponível");
         sleep(1000);
+    }
+
+    @Override @Before public void beforeTest() {
+        createProfile(NAME, NICK, FULL_SMALL_EMAIL, PASS);
+    }
+
+    @Override @After public void afterTest() {
+        deleteProfile(FULL_SMALL_EMAIL);
     }
     
 }

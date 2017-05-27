@@ -5,6 +5,10 @@ import javafx.scene.input.KeyCode;
 import junit.framework.Assert;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
+import marcelo.interfaces.IAfterTest;
+import marcelo.interfaces.IBeforeTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.GuiTest.find;
@@ -15,7 +19,7 @@ import static org.loadui.testfx.controls.Commons.hasText;
  * 
  * @author Marcelo Gomes Martins
  */
-public class CN005CT03 extends CirdanTestGui{
+public class CN005CT03 extends CirdanTestGui implements IBeforeTest, IAfterTest {
     
     /**
      * Teste de login com email com lower e upper case
@@ -24,15 +28,8 @@ public class CN005CT03 extends CirdanTestGui{
      * Ter o software instalado
      */
     @Test public void test(){
-        char first = EMAIL_BODY.charAt(0);
-        // requisito do teste desenvolvido 
-        if(Character.isLowerCase(first)){
-            first = Character.toUpperCase(first);
-        } else {
-            first = Character.toLowerCase(first);
-        }
         click("#txfEmail").
-                type(first + EMAIL_BODY.substring(1)).
+                type(getCaseChange() + SMALL_EMAIL_BODY.substring(1)).
                 press(KeyCode.SHIFT).
                 press(KeyCode.DIGIT2).
                 release(KeyCode.SHIFT).
@@ -51,6 +48,30 @@ public class CN005CT03 extends CirdanTestGui{
            }
         }
         Assert.assertTrue(colorMatch);
+    }
+    
+    /**
+     * Pre-requisito: usuário cadastrado conforme CN001CT01
+     */
+    @Override @Before public void beforeTest() {
+        
+        this.createProfile(NAME, NICK, getCaseChange() + SMALL_EMAIL_BODY.substring(1), PASS);
+    }
+    
+    @Override @After public void afterTest() {
+        this.deleteProfile(getCaseChange() + SMALL_EMAIL_BODY.substring(1));
+    }
+    
+    private char getCaseChange()
+    {
+        char first = SMALL_EMAIL_BODY.charAt(0);
+        // requisito do teste desenvolvido 
+        if(Character.isLowerCase(first)){
+            first = Character.toUpperCase(first);
+        } else {
+            first = Character.toLowerCase(first);
+        }
+        return first;
     }
     
 }

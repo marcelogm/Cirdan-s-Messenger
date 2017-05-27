@@ -26,7 +26,7 @@ public class CN005CT02 extends CirdanTestGui{
     @Test
     public void test(){
         click("#txfEmail").
-                type(RANDOM_EMAIL_BODY).
+                type(SMALL_EMAIL_BODY).
                 press(KeyCode.SHIFT).
                 press(KeyCode.DIGIT2).
                 release(KeyCode.SHIFT).

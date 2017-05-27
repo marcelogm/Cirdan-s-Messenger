@@ -67,6 +67,14 @@ public class Facade {
         this.friendships.delete(friendship);
     }
     
+    public void delete(Password password){
+        this.passwords.delete(password);
+    }
+    
+    public void delete(Profile profile){
+        this.profiles.delete(profile);
+    }
+    
     public Profile findProfileById(long id){
         return this.profiles.findById(id);
     }

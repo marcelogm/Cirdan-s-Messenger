@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package marcelo.util;
+package marcelo.interfaces;
+
+import org.junit.After;
 
 /**
  *
  * @author marce
  */
-public interface ICirdanTestGui {
-    public void test();
+public interface IAfterTest {
+    @After public void afterTest();
 }

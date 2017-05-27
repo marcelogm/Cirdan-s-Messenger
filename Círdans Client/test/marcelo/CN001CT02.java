@@ -9,25 +9,27 @@ import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.controls.Commons.hasText;
 import util.UStage;
 import static marcelo.util.Constants.*;
+import marcelo.interfaces.IAfterTest;
+import marcelo.interfaces.IBeforeTest;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * Cenário de teste de primeiro uso
  * 
  * @author Marcelo Gomes Martins
  */
-public class CN001CT02 extends CirdanTestGui {
+public class CN001CT02 extends CirdanTestGui implements IAfterTest, IBeforeTest {
     
     /**
      * Teste simple de login
      * 
-     * Pré requisitos:
-     * Já ter executado o caso de teste CN001CT01
      * @see CN001CT01.java
+     * @implementado trabalho implementado por completo
      */
-    @Test public void test()
-    {
+    @Test public void test() {
         click("#txfEmail").
-                type(EMAIL_BODY).
+                type(SMALL_EMAIL_BODY).
                 press(KeyCode.SHIFT).
                 press(KeyCode.DIGIT2).
                 release(KeyCode.SHIFT).
@@ -39,5 +41,16 @@ public class CN001CT02 extends CirdanTestGui {
         Assert.assertEquals(UStage.getInstance().getCurrentController().getClass(), CMain.class);
         verifyThat("#lblNickname", hasText(NICK));
         verifyThat("#lblProfileName", hasText(NAME));
+    }
+    
+    /**
+     * Pre-requisito: usuário cadastrado conforme CN001CT01
+     */
+    @Override @Before public void beforeTest() {
+        this.createProfile(NAME, NICK, FULL_SMALL_EMAIL, PASS);
+    }
+    
+    @Override @After public void afterTest() {
+        this.deleteProfile(FULL_SMALL_EMAIL);
     }
 }

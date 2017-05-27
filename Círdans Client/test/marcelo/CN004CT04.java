@@ -1,8 +1,11 @@
 package marcelo;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import marcelo.util.CirdanTestGui;
+import static marcelo.util.Constants.*;
+import marcelo.interfaces.IAfterTest;
+import marcelo.interfaces.IBeforeTest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -10,7 +13,7 @@ import org.junit.Test;
  * 
  * @author Marcelo Gomes Martins
  */
-public class CN004CT04 extends CirdanTestGui {
+public class CN004CT04 extends CirdanTestGui implements IAfterTest, IBeforeTest{
     
     /**
      * Teste de pesquisa por usuário inexistente
@@ -19,10 +22,19 @@ public class CN004CT04 extends CirdanTestGui {
      * Estar logado no sistema.
      */
     @Test public void test(){
-        preExecute();
+        doLogin(FULL_SMALL_EMAIL, PASS);
         openNewFriendScreen();
-        click("#txfSearch").type(new BigInteger(40, new SecureRandom()).toString(32));
+        click("#txfSearch").type(FRIEND_NAME);
         click("Pesquisar");
         click("usuário não foi encontrado.");
+    }
+    
+       
+    @Override @Before public void beforeTest() {
+        this.createProfile(NAME, NICK, FULL_SMALL_EMAIL, PASS);
+    }
+    
+    @Override @After public void afterTest() {
+        this.deleteProfile(FULL_SMALL_EMAIL);
     }
 }
