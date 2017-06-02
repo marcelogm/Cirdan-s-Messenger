@@ -1,9 +1,8 @@
 package marcelo;
 
 import javafx.scene.layout.Pane;
-import junit.framework.Assert;
+import static junit.framework.Assert.assertTrue;
 import marcelo.util.CirdanTestGui;
-import marcelo.util.Constants;
 import static marcelo.util.Constants.*;
 import marcelo.interfaces.IAfterTest;
 import marcelo.interfaces.IBeforeTest;
@@ -37,7 +36,7 @@ public class CN003CT01 extends CirdanTestGui implements IBeforeTest, IAfterTest{
                colorMatch = true;
            }
         }
-        Assert.assertTrue(colorMatch);
+        assertTrue(colorMatch);
         click("Ausente");
         click("Disponível");
         sleep(1000);

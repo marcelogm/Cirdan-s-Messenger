@@ -3,6 +3,7 @@ package marcelo;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import junit.framework.Assert;
+import static junit.framework.Assert.assertTrue;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
 import org.junit.Test;
@@ -44,6 +45,6 @@ public class CN005CT02 extends CirdanTestGui{
                colorMatch = true;
            }
         }
-        Assert.assertTrue(colorMatch);
+        assertTrue(colorMatch);
     }
 }

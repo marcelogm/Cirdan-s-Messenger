@@ -4,6 +4,7 @@ import facade.Facade;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import junit.framework.Assert;
+import static junit.framework.Assert.assertTrue;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
 import marcelo.interfaces.IAfterTest;
@@ -58,7 +59,7 @@ public class CN005CT01 extends CirdanTestGui implements IAfterTest{
                colorMatch = true;
            }
         }
-        Assert.assertTrue(colorMatch);
+        assertTrue(colorMatch);
     }
     
     @Override @After public void afterTest() {

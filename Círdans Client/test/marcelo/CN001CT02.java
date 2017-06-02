@@ -2,7 +2,7 @@ package marcelo;
 
 import controller.CMain;
 import javafx.scene.input.KeyCode;
-import junit.framework.Assert;
+import static junit.framework.Assert.assertEquals;
 import marcelo.util.CirdanTestGui;
 import org.junit.Test;
 import static org.loadui.testfx.Assertions.verifyThat;
@@ -38,7 +38,7 @@ public class CN001CT02 extends CirdanTestGui implements IAfterTest, IBeforeTest 
         click("#psfPassword").type(PASS);
         click("#btnLogin");
         sleep(3000);
-        Assert.assertEquals(UStage.getInstance().getCurrentController().getClass(), CMain.class);
+        assertEquals(UStage.getInstance().getCurrentController().getClass(), CMain.class);
         verifyThat("#lblNickname", hasText(NICK));
         verifyThat("#lblProfileName", hasText(NAME));
     }

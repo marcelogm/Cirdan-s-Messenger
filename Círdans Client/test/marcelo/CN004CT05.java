@@ -5,6 +5,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import junit.framework.Assert;
+import static junit.framework.Assert.assertEquals;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
 import marcelo.interfaces.IAfterTest;
@@ -49,7 +50,7 @@ public class CN004CT05 extends CirdanTestGui implements IAfterTest, IBeforeTest{
             type(KeyCode.ENTER);
         }
         ListView<SMessage> list = find("#lvwMessages");
-        Assert.assertEquals(list.getItems().size(), MESSAGE_AMOUNT);
+        assertEquals(list.getItems().size(), MESSAGE_AMOUNT);
         sleep(2000);
     }
 

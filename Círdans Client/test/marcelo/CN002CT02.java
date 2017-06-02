@@ -5,7 +5,7 @@ import java.util.Set;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import junit.framework.Assert;
+import static junit.framework.Assert.assertTrue;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
 import marcelo.interfaces.IAfterTest;
@@ -45,7 +45,7 @@ public class CN002CT02 extends CirdanTestGui implements IAfterTest, IBeforeTest 
                 hasMessage = true;
             }
         }
-        Assert.assertTrue(hasMessage);
+        assertTrue(hasMessage);
         sleep(2000);
     }
 

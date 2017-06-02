@@ -2,7 +2,7 @@ package marcelo;
 
 import controller.CMain;
 import javafx.scene.input.KeyCode;
-import junit.framework.Assert;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.controls.Commons.hasText;
@@ -42,7 +42,7 @@ public class CN001CT01 extends CirdanTestGui implements IAfterTest {
         click("#pdfPass").type(PASS);
         click("#pdfRepass").type(PASS);
         click("#btnRegister");
-        Assert.assertEquals(UStage.getInstance().getCurrentController().getClass(), CMain.class);
+        assertEquals(UStage.getInstance().getCurrentController().getClass(), CMain.class);
         verifyThat("#lblNickname", hasText(NICK));
         verifyThat("#lblProfileName", hasText(NAME));
     }

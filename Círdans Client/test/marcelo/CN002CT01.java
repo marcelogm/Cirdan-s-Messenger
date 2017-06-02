@@ -2,12 +2,12 @@ package marcelo;
 
 import java.util.Set;
 import javafx.scene.Node;
+import static junit.framework.Assert.assertTrue;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
 import marcelo.interfaces.IAfterTest;
 import marcelo.interfaces.IBeforeTest;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 /**
@@ -44,7 +44,7 @@ public class CN002CT01 extends CirdanTestGui implements IAfterTest, IBeforeTest{
                 hasDisable = true;
             }
         }
-        Assert.assertTrue(hasDisable);
+        assertTrue(hasDisable);
     }
     
     @Override @Before public void beforeTest()

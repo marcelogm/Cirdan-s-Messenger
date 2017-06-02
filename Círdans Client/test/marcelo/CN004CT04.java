@@ -27,8 +27,7 @@ public class CN004CT04 extends CirdanTestGui implements IAfterTest, IBeforeTest{
         click("#txfSearch").type(FRIEND_NAME);
         click("Pesquisar");
         click("usuário não foi encontrado.");
-    }
-    
+    }    
        
     @Override @Before public void beforeTest() {
         this.createProfile(NAME, NICK, FULL_SMALL_EMAIL, PASS);

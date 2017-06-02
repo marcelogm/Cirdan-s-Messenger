@@ -1,12 +1,12 @@
 package marcelo;
 
 import javafx.scene.control.TextField;
+import static junit.framework.Assert.assertTrue;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
 import marcelo.interfaces.IAfterTest;
 import marcelo.interfaces.IBeforeTest;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.loadui.testfx.GuiTest.find;
@@ -33,7 +33,7 @@ public class CN004CT03 extends CirdanTestGui implements IAfterTest, IBeforeTest 
                colorMatch = true;
            }
         }
-        Assert.assertTrue(colorMatch);
+        assertTrue(colorMatch);
         sleep(1000);
     }
     

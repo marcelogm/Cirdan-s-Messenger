@@ -2,7 +2,7 @@ package marcelo;
 
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import junit.framework.Assert;
+import static junit.framework.Assert.assertTrue;
 import marcelo.util.CirdanTestGui;
 import static marcelo.util.Constants.*;
 import marcelo.interfaces.IAfterTest;
@@ -47,7 +47,7 @@ public class CN005CT03 extends CirdanTestGui implements IBeforeTest, IAfterTest 
                colorMatch = true;
            }
         }
-        Assert.assertTrue(colorMatch);
+        assertTrue(colorMatch);
     }
     
     /**
@@ -65,13 +65,7 @@ public class CN005CT03 extends CirdanTestGui implements IBeforeTest, IAfterTest 
     private char getCaseChange()
     {
         char first = SMALL_EMAIL_BODY.charAt(0);
-        // requisito do teste desenvolvido 
-        if(Character.isLowerCase(first)){
-            first = Character.toUpperCase(first);
-        } else {
-            first = Character.toLowerCase(first);
-        }
-        return first;
+        return Character.isLowerCase(first)? Character.toUpperCase(first) : Character.toLowerCase(first); 
     }
     
 }
