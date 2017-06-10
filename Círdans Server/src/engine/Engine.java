@@ -77,6 +77,18 @@ public class Engine extends Thread{
                 break;
             case REQUIRE_PASSWORD_RESET:
                 break;
+            case REQUEIRE_API_AUTH:
+                if(Main.DEBUG_WATCHER) System.out.println(socket.getInetAddress() + " tentando autenticar-se com API.");
+                SLogin credential = ((SLogin)message.getPayload());
+                Profile profile = f.findProfileByEmail(credential.getEmail());
+                if(profile != null) {
+                    this.sendSucessful(socket, profile, EResponse.AUTH_SUCCESSFUL);
+                    this.createNewConnection(socket, profile);
+                    connected = true;
+                } else {
+                    this.sendErrorMessage(socket, EResponse.ERROR);
+                }
+                break;
             default:
                 System.out.println("Requisição fora dos padrões.");
         }

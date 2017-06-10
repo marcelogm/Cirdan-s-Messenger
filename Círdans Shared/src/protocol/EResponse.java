@@ -27,7 +27,8 @@ public enum EResponse {
     SEND_MESSAGE(24),
     RECIEVE_MESSAGE(25),
     SEND_TAKE_ATTENTION(26),
-    RECIEVE_TAKE_ATTENTION(27);
+    RECIEVE_TAKE_ATTENTION(27),
+    REQUEIRE_API_AUTH(28);
    
     public int type;
     
