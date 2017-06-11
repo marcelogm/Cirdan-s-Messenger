@@ -1,7 +1,9 @@
-package util;
+package guilherme.util;
 
 import facade.Facade;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.logging.Level;
@@ -14,26 +16,13 @@ import junit.framework.Assert;
 import model.Friendship;
 import model.Password;
 import model.Profile;
-
-//import model.Friendship;
-//import model.Password;
-//import model.Profile;
 import org.loadui.testfx.GuiTest;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-
 import static org.loadui.testfx.GuiTest.find;
 import protocol.EStatus;
-//import util.UPassword;
 import util.UStage;
 
-/**
- *
- * @author marce
- */
 public abstract class CirdanTestGui extends GuiTest {
-    
+
     @Override
     protected Parent getRootNode() {
         UStage smanager = UStage.getInstance();
@@ -48,11 +37,12 @@ public abstract class CirdanTestGui extends GuiTest {
         smanager.getStage().getScene().setRoot(new Region());
         return root;
     }
-    
+
     /**
      * Realiza login na UI
-     * @param email 
-     * @param password 
+     *
+     * @param email
+     * @param password
      */
     protected void doLogin(String email, String password) {
         TextField txfEmail = find("#txfEmail");
@@ -62,14 +52,14 @@ public abstract class CirdanTestGui extends GuiTest {
         click("#btnLogin");
         sleep(2000);
     }
-    
+
     /**
      * Abrir janela de nova amizade
      */
     protected void openNewFriendScreen() {
         click("Opções").click("Adicionar amigo");
     }
-    
+
     /**
      * Cria usuário no banco de dados
      */
@@ -94,10 +84,11 @@ public abstract class CirdanTestGui extends GuiTest {
         profile = f.findProfileByEmail(profile.getEmail());
         Assert.assertNotNull(profile);
     }
-    
+
     /**
      * Deleta usuário no banco de dados
-     * @param email 
+     *
+     * @param email
      */
     protected void deleteProfile(String email) {
         Facade f = Facade.getInstance();
@@ -106,9 +97,10 @@ public abstract class CirdanTestGui extends GuiTest {
         f.delete(profile);
         f.delete(password);
     }
-    
+
     /**
      * Delete relacionamento em dois usuários no banco de dados
+     *
      * @param emailSender email do primeiro usuário
      * @param emailReciever email do segundo usuário
      */
@@ -119,64 +111,70 @@ public abstract class CirdanTestGui extends GuiTest {
         Friendship friendship = f.findFriendshipByProfiles(sender.getId(), reciever.getId());
         f.delete(friendship);
     }
-    
-    /**fun��o que pega o status do usuario no banco**/
-    public boolean pegaStatus(int status){
-    	Connection conexao = null;
-    	PreparedStatement st = null;
-    	int stat=0;
-    	try{
-    		String query = "SELECT pstatus FROM tbl_profile" + "WHERE tbl_profile.email = 'teste@teste.com'";
-    		conexao = (Connection) DBUtil.getConnetion();
-    		st = (PreparedStatement) conexao.prepareStatement(query);
-    		ResultSet result = st.executeQuery();
-    		while(result.next()){
-    			status = result.getInt("pstatus");
-    		}
-    		if(DBUtil.DEBUG) System.out.println(st);
-    		st.close();
-    		
-    	}
-    	catch(Exception e){
-    		System.out.println("erro no banco");
-    	}
-    	finally{
-    		try{conexao.close();}catch(Exception e){}
-    		try{st.close();}catch(Exception e){}
-    	}
-    	
-    	System.out.println("Status: "+stat);
-    	if(stat == status){
-    		return true;
-    	}
-    	else{
-    		return true;
-    
-    	}
+
+    /**
+     * fun��o que pega o status do usuario no banco*
+     */
+    public boolean pegaStatus(int status) {
+        Connection conexao = null;
+        PreparedStatement st = null;
+        int stat = 0;
+        try {
+            String query = "SELECT pstatus FROM tbl_profile" + "WHERE tbl_profile.email = 'teste@teste.com'";
+            conexao = (Connection) DBUtil.getConnetion();
+            st = (PreparedStatement) conexao.prepareStatement(query);
+            ResultSet result = st.executeQuery();
+            while (result.next()) {
+                status = result.getInt("pstatus");
+            }
+            st.close();
+
+        } catch (Exception e) {
+            System.out.println("erro no banco");
+        } finally {
+            try {
+                conexao.close();
+            } catch (Exception e) {
+            }
+            try {
+                st.close();
+            } catch (Exception e) {
+            }
+        }
+
+        System.out.println("Status: " + stat);
+        if (stat == status) {
+            return true;
+        } else {
+            return true;
+
+        }
     }
-    
-    public boolean pegaNome(String nome){
-    	Connection conexao = null;
-    	PreparedStatement st = null;
-    	int stat=0;
-    	try{
-    		String query = "SELECT name FROM tbl_profile" + "WHERE tbl_profile.name = 'nome'";
-    		conexao = (Connection) DBUtil.getConnetion();
-    		st = (PreparedStatement) conexao.prepareStatement(query);
-    		ResultSet result = st.executeQuery();
-    		
-    		if(DBUtil.DEBUG) System.out.println(st);
-    		st.close();
-    		
-    	}
-    	catch(Exception e){
-    		System.out.println("Nome n�o exist");
-    		return true;
-    	}
-    	finally{
-    		try{conexao.close();}catch(Exception e){}
-    		try{st.close();}catch(Exception e){}
-    	}
-    	return true;
+
+    public boolean pegaNome(String nome) {
+        Connection conexao = null;
+        PreparedStatement st = null;
+        int stat = 0;
+        try {
+            String query = "SELECT name FROM tbl_profile" + "WHERE tbl_profile.name = 'nome'";
+            conexao = (Connection) DBUtil.getConnetion();
+            st = (PreparedStatement) conexao.prepareStatement(query);
+            ResultSet result = st.executeQuery();
+            st.close();
+
+        } catch (Exception e) {
+            System.out.println("Nome n�o exist");
+            return true;
+        } finally {
+            try {
+                conexao.close();
+            } catch (Exception e) {
+            }
+            try {
+                st.close();
+            } catch (Exception e) {
+            }
+        }
+        return true;
     }
 }
