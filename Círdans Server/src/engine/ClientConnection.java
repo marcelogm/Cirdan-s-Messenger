@@ -110,16 +110,16 @@ public class ClientConnection extends Thread{
     private void executeMessageForward(CProtocol clientMessage, boolean isAttention){
         SMessage message = (SMessage)clientMessage.getPayload();
         if(Main.DEBUG_WATCHER) {
-            System.out.println(message.getSenderId() + " enviando mensagem para " + message.getRecieverId() + ".");
+            System.out.println(message.getSenderId() + " enviando mensagem para " + message.getReceiverId() + ".");
         }
-        Friendship friendship = this.facade.findFriendshipByProfiles(message.getRecieverId(), message.getSenderId());
+        Friendship friendship = this.facade.findFriendshipByProfiles(message.getReceiverId(), message.getSenderId());
         if(friendship != null && friendship.isAccepted() && !friendship.isBlocked()){
-            this.sendMessage(message.getRecieverId(), message, isAttention);
+            this.sendMessage(message.getReceiverId(), message, isAttention);
         } else {
             System.out.println("Usuário " + 
                     message.getSenderName() + 
                     " não tem permissão para enviar mensagens para o usuário " + 
-                    message.getRecieverName());
+                    message.getReceiverName());
         }
     }
     
@@ -191,7 +191,7 @@ public class ClientConnection extends Thread{
      * ACCEPTED_FRIENDSHIP
      */ 
     private void executeAcceptedFriendship(CProtocol message){
-        Long idAccepted = message.getRecieverId();
+        Long idAccepted = message.getReceiverId();
         this.setFriendshipAccepted(idAccepted);
         if(Main.DEBUG_WATCHER) {
             System.out.println(this.id + " está aceitando uma amizade.");
@@ -208,7 +208,7 @@ public class ClientConnection extends Thread{
      * REFUSED_FRIENDSHIP
      */
     private void executeRefusedFriendship(CProtocol message){
-        Long idRefused = message.getRecieverId();
+        Long idRefused = message.getReceiverId();
         if(Main.DEBUG_WATCHER) {
             System.out.println(this.id + " está recusando uma amizade.");
         }
@@ -226,7 +226,7 @@ public class ClientConnection extends Thread{
                 new CProtocol(
                         this.connection.getInetAddress(),
                         this.id,
-                        (isAttention ? EResponse.RECIEVE_MESSAGE : EResponse.RECIEVE_TAKE_ATTENTION),
+                        (isAttention ? EResponse.RECEIVE_MESSAGE : EResponse.RECEIVE_TAKE_ATTENTION),
                         message
             ));
         } catch (IOException ex) {
@@ -246,7 +246,7 @@ public class ClientConnection extends Thread{
                         this.id,
                         id,
                         new Date(),
-                        EResponse.RECIEVE_TAKE_ATTENTION,
+                        EResponse.RECEIVE_TAKE_ATTENTION,
                         name
             ));
         } catch (IOException ex) {
@@ -280,9 +280,9 @@ public class ClientConnection extends Thread{
     private void sendPendingFriendship(){
         ArrayList<Profile> profiles = facade.findPendingFriends(id);
         HashMap<Long, String> response = new HashMap<>();
-        for(Profile profile: profiles){
+        profiles.forEach((profile) -> {
             response.put(profile.getId(), profile.getName());
-        }
+        });
         try {
             this.sendStream(this.clientTable.clients.get(id).connection,
                 new CProtocol(
@@ -303,14 +303,14 @@ public class ClientConnection extends Thread{
     private void sendProfileList(String likeThis){
         ArrayList<Profile> profiles = facade.findNonFriendList(this.id, likeThis);
         ArrayList<SProfile> nonfriends = new ArrayList<>();
-        for(Profile p : profiles){
+        profiles.forEach((p) -> {
             nonfriends.add(new SProfile(
                     p.getId(),
                     p.getName(),
                     p.getNick(),
                     p.getImageUrl()
             ));
-        }
+        });
         try {
             this.sendStream(connection, new CProtocol(
                    connection.getInetAddress(),
@@ -331,10 +331,12 @@ public class ClientConnection extends Thread{
         ArrayList<Profile> profiles = facade.findFriendList(id);
         ArrayList<SProfile> friends = new ArrayList<>();
         
-        for(Profile p : profiles){
+        profiles.stream().map((p) -> {
             if(!this.clientTable.clients.containsKey(p.getId())){
                 p.setStatus(EStatus.OFFLINE.status);
             }
+            return p;
+        }).forEachOrdered((p) -> {
             friends.add(new SProfile(
                     p.getId(),
                     p.getName(),
@@ -343,7 +345,7 @@ public class ClientConnection extends Thread{
                     p.getSubnick(),
                     p.getImageUrl()
             ));
-        }
+        });
         
         try {
             this.sendStream(connection, new CProtocol(
@@ -363,21 +365,19 @@ public class ClientConnection extends Thread{
     private void sendChangeStatusToFriends(Integer status){
         ArrayList<Profile> profiles = facade.findFriendList(this.id);
         
-        for(Profile p : profiles){
-            if(this.clientTable.clients.containsKey(p.getId())){
-                try {
-                    this.sendStream(this.clientTable.clients.get(p.getId()).connection, 
-                            new CProtocol(
+        profiles.stream().filter((p) -> (this.clientTable.clients.containsKey(p.getId()))).forEachOrdered((p) -> {
+            try {
+                this.sendStream(this.clientTable.clients.get(p.getId()).connection,
+                        new CProtocol(
                                 this.connection.getInetAddress(),
                                 this.id,
                                 EResponse.FRIEND_CHANGE_STATUS,
                                 status
-                    ));
-                } catch (IOException ex) {
-                    Logger.getLogger(ClientConnection.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                        ));
+            } catch (IOException ex) {
+                Logger.getLogger(ClientConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        });
     }
     
     /**

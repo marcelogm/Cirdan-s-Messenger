@@ -7,7 +7,7 @@ import java.util.Date;
 public class CProtocol implements Serializable {
     private InetAddress sender;
     private long senderId;
-    private long recieverId;
+    private long receiverId;
     private Date timestamp;
     private EResponse type;
     private Object payload;
@@ -49,10 +49,10 @@ public class CProtocol implements Serializable {
         this.payload = payload;
     }
 
-    public CProtocol(InetAddress sender, long senderId, long recieverId, Date timestamp, EResponse type, Object payload) {
+    public CProtocol(InetAddress sender, long senderId, long receiverId, Date timestamp, EResponse type, Object payload) {
         this.sender = sender;
         this.senderId = senderId;
-        this.recieverId = recieverId;
+        this.receiverId = receiverId;
         this.timestamp = timestamp;
         this.type = type;
         this.payload = payload;
@@ -76,12 +76,12 @@ public class CProtocol implements Serializable {
         this.senderId = senderId;
     }
 
-    public long getRecieverId() {
-        return recieverId;
+    public long getReceiverId() {
+        return receiverId;
     }
 
-    public void setRecieverId(long recieverId) {
-        this.recieverId = recieverId;
+    public void setReceiverId(long receiverId) {
+        this.receiverId = receiverId;
     }
     
     public Date getTimestamp() {

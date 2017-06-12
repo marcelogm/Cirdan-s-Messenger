@@ -49,13 +49,13 @@ public class UHistory {
      * @param byMe
      */
     public void record(SMessage message, boolean byMe){
-        if(message.getSenderId() != null && message.getRecieverId() != null){
+        if(message.getSenderId() != null && message.getReceiverId() != null){
             String filename = null;
             try {
                 if(byMe){
-                    filename = base + message.getSenderId() + "_" + message.getRecieverId() + ".crg";
+                    filename = base + message.getSenderId() + "_" + message.getReceiverId() + ".crg";
                 } else {
-                    filename = base + message.getRecieverId() + "_" + message.getSenderId() + ".crg";
+                    filename = base + message.getReceiverId() + "_" + message.getSenderId() + ".crg";
                 }
                 this.writeBinary(filename, message);
             } catch (IOException ex) {

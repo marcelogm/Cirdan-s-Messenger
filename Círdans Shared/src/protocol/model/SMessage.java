@@ -1,38 +1,38 @@
-
 package protocol.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class SMessage implements Serializable{
+public class SMessage implements Serializable {
+
     private Long senderId;
     private String senderName;
-    private Long recieverId;
-    private String recieverName;
+    private Long receiverId;
+    private String receiverName;
     private String message;
     private Date sentAt;
 
     public SMessage() {
     }
 
-    public SMessage(Long senderId, Long recieverId, String message) {
+    public SMessage(Long senderId, Long receiverId, String message) {
         this.senderId = senderId;
-        this.recieverId = recieverId;
+        this.receiverId = receiverId;
         this.message = message;
     }
 
-    public SMessage(Long senderId, Long recieverId, String message, Date sentAt) {
+    public SMessage(Long senderId, Long receiverId, String message, Date sentAt) {
         this.senderId = senderId;
-        this.recieverId = recieverId;
+        this.receiverId = receiverId;
         this.message = message;
         this.sentAt = sentAt;
     }
 
-    public SMessage(Long senderId, String senderName, Long recieverId, String recieverName, String message, Date sentAt) {
+    public SMessage(Long senderId, String senderName, Long receiverId, String receiverName, String message, Date sentAt) {
         this.senderId = senderId;
         this.senderName = senderName;
-        this.recieverId = recieverId;
-        this.recieverName = recieverName;
+        this.receiverId = receiverId;
+        this.receiverName = receiverName;
         this.message = message;
         this.sentAt = sentAt;
     }
@@ -53,20 +53,20 @@ public class SMessage implements Serializable{
         this.senderName = senderName;
     }
 
-    public Long getRecieverId() {
-        return recieverId;
+    public Long getReceiverId() {
+        return receiverId;
     }
 
-    public void setRecieverId(Long recieverId) {
-        this.recieverId = recieverId;
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
     }
 
-    public String getRecieverName() {
-        return recieverName;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setRecieverName(String recieverName) {
-        this.recieverName = recieverName;
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
     public String getMessage() {

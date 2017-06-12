@@ -214,10 +214,10 @@ public class CMain extends AController {
                             case PENDING_FRIENDSHIP_RESPONSE:
                                 this.friendshipQuestionQueue(message);
                                 break;
-                            case RECIEVE_MESSAGE:
+                            case RECEIVE_MESSAGE:
                                 this.recieveMessage(message, false);
                                 break;
-                            case RECIEVE_TAKE_ATTENTION:
+                            case RECEIVE_TAKE_ATTENTION:
                                 this.recieveMessage(message, true);
                                 break;
                             // Falha na comunicação

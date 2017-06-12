@@ -216,7 +216,7 @@ public class Engine {
         try {
             CProtocol protocol = new CProtocol();
             protocol.setType(bool ? EResponse.ACCEPTED_FRIENDSHIP : EResponse.REFUSED_FRIENDSHIP);
-            protocol.setRecieverId(id);
+            protocol.setReceiverId(id);
             protocol.setSenderId(this.connection.id);
             protocol.setSender(this.connection.ipv4);
             this.sendStream(protocol);
