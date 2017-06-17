@@ -74,10 +74,13 @@ public class Engine extends Thread{
             case REQUIRE_NEW_ACCOUNT:
                 if(Main.DEBUG_WATCHER) System.out.println(socket.getInetAddress() + " tentando cadastrar-se.");
                 connected = this.requireNewAccount(message, socket);
+            case REQUIRE_API_REGISTRATION:
+                if(Main.DEBUG_WATCHER) System.out.println(socket.getInetAddress() + " tentando cadastrar-se.");
+                connected = this.requireApiRegistration(message, socket);
                 break;
             case REQUIRE_PASSWORD_RESET:
                 break;
-            case REQUEIRE_API_AUTH:
+            case REQUIRE_API_AUTH:
                 if(Main.DEBUG_WATCHER) System.out.println(socket.getInetAddress() + " tentando autenticar-se com API.");
                 SLogin credential = ((SLogin)message.getPayload());
                 Profile profile = f.findProfileByEmail(credential.getEmail());
@@ -144,6 +147,24 @@ public class Engine extends Thread{
         return connected;
     }
     
+    private boolean requireApiRegistration(CProtocol message, Socket socket) throws IOException{
+        Profile profile =  null;
+        boolean connected = false;
+        SProfile profileInfo = ((SProfile)message.getPayload());
+        profile = f.findProfileByEmail(profileInfo.getEmail());
+        if (profile != null){
+            this.createNewConnection(socket, profile);
+            this.sendSucessful(socket, profile, EResponse.EMAIL_ALREADY_EXISTS);
+        } else {
+            profile = this.createNewAccount(socket, profileInfo);
+            this.createNewConnection(socket, profile);
+            this.sendSucessful(socket, profile, EResponse.REGISTRATION_SUCESSFUL);
+            connected = true;
+        }
+        return connected;
+    }
+    
+    
     private void sendSucessful(Socket socket, Profile profile, EResponse what) throws IOException{
         this.sendStream(socket, new CProtocol(
                 socket.getLocalAddress(),
@@ -179,9 +200,13 @@ public class Engine extends Thread{
     
     private Profile createNewAccount(Socket socket, SProfile profileInfo) {
         Facade f = Facade.getInstance();
-        Password pass = UPassword.generatePassword(profileInfo.getPassword());
-        f.save(pass);
-        pass = f.findPasswordByHash(pass.getPassword());
+        Long passId = (long)0;
+        if(profileInfo.getPassword() != null){
+            Password pass = UPassword.generatePassword(profileInfo.getPassword());
+            f.save(pass);
+            pass = f.findPasswordByHash(pass.getPassword());
+            passId = pass.getId();
+        }
         Profile profile = new Profile(
                 profileInfo.getName(),
                 profileInfo.getNick(),
@@ -192,7 +217,7 @@ public class Engine extends Thread{
                 new Date(),
                 true,
                 profileInfo.getImageUrl(),
-                pass.getId()
+                passId
         );
         f.save(profile);
         profile = f.findProfileByEmail(profile.getEmail());
