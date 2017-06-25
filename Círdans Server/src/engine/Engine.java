@@ -157,10 +157,10 @@ public class Engine extends Thread{
             this.sendSucessful(socket, profile, EResponse.EMAIL_ALREADY_EXISTS);
         } else {
             profile = this.createNewAccount(socket, profileInfo);
-            this.createNewConnection(socket, profile);
+           // this.createNewConnection(socket, profile);
             this.sendSucessful(socket, profile, EResponse.REGISTRATION_SUCESSFUL);
-            connected = true;
         }
+        connected = true;
         return connected;
     }
     
